@@ -1,0 +1,20 @@
+{
+    "id": "transition",
+    "name": "Transition Movement",
+    "description": "",
+    "keywords": [],
+    "version": "1.0",
+    "humhub": {
+        "minVersion": "1.10"
+    },
+    "homepage": "https://cuzy.app",
+    "authors": [
+        {
+            "name": "Marc FARRE",
+            "homepage": "https://marc.fun",
+            "role": "Developer"
+        }
+    ],
+    "screenshots": [
+    ]
+}
