@@ -26,7 +26,7 @@ AdminMenu::markAsActive(['/admin/default-spaces']);
     <h4>
         <?= $title ?>
     </h4>
-    <div class="help-block"><?= Yii::t('TransitionModule.config', 'Default spaces') ?></div>
+    <div class="help-block"><?= Yii::t('TransitionModule.config', 'Choose a space for each region. When a user registers a new account, depending on the region he choose, he will become a member to the corresponding space.') ?></div>
 
     <?= Html::beginForm() ?>
     <table class="table table-striped table-hover">
