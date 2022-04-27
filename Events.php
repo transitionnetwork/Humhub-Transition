@@ -10,11 +10,14 @@ namespace humhub\modules\transition;
 
 use humhub\modules\admin\permissions\ManageUsers;
 use humhub\modules\admin\widgets\UserMenu;
+use humhub\modules\space\models\Space;
 use humhub\modules\ui\menu\MenuLink;
+use humhub\modules\user\models\User;
 use Throwable;
 use Yii;
 use yii\base\Event;
 use yii\base\InvalidConfigException;
+use yii\helpers\BaseInflector;
 
 class Events
 {
@@ -53,6 +56,28 @@ class Events
             return;
         }
 
+        /** @var Module $module */
+        $module = Yii::$app->getModule('transition');
+        $settings = $module->settings;
+        $defaultSpaces = (array)$settings->getSerialized('defaultSpaces');
 
+        // Get user from event because Yii::$app->user->id doesnt work here
+        $user = User::findOne(['id' => $event->identity->getId()]);
+
+        if (empty($user->profile->region)) {
+            return;
+        }
+
+        $defaultSpaceId = $defaultSpaces[BaseInflector::slug($user->profile->region)] ?? null;
+        if (!$defaultSpaceId) {
+            return;
+        }
+
+        $space = Space::findOne($defaultSpaceId);
+        if ($space === null) {
+            return;
+        }
+
+        $space->addMember($user->id);
     }
 }
