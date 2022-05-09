@@ -10,11 +10,13 @@ namespace humhub\modules\transition;
 
 use humhub\modules\admin\permissions\ManageUsers;
 use humhub\modules\admin\widgets\UserMenu;
+use humhub\modules\legal\Module;
 use humhub\modules\space\models\Space;
 use humhub\modules\ui\menu\MenuLink;
 use humhub\modules\user\models\User;
 use Throwable;
 use Yii;
+use yii\base\ActionEvent;
 use yii\base\Event;
 use yii\base\InvalidConfigException;
 use yii\helpers\BaseInflector;
@@ -42,8 +44,11 @@ class Events
 
 
     /**
+     * Add user to space depending on the Region field selected on the registration form
      * @param Yii\web\UserEvent $event
      * @return void
+     * @throws InvalidConfigException
+     * @throws Throwable
      */
     public static function onFormAfterRegistration(yii\web\UserEvent $event)
     {
@@ -79,5 +84,39 @@ class Events
         }
 
         $space->addMember($user->id);
+    }
+
+
+    public static function onBeforeControllerAction(ActionEvent $event)
+    {
+        if (Yii::$app->user->isGuest) {
+            return;
+        }
+
+        $currentModule = $event->action->controller->module->id;
+        $currentController = $event->action->controller->id;
+        $currentAction = $event->action->id;
+
+        // Allow some modules actions
+        if (
+            ($currentModule === 'user' && $currentController === 'account' && $currentAction === 'delete')
+            || ($currentModule === 'user' && $currentController === 'must-change-password')
+            || ($currentModule === 'user' && $currentController === 'auth')
+            || ($currentModule === 'mail' && $currentController === 'mail')
+            || $currentController === 'poll'
+            || $currentModule === 'legal'
+            || $currentModule === 'transition'
+            || $currentModule === 'rest'
+            || ($currentModule === 'file' && $currentController === 'file' && $currentAction === 'download')
+            || ($currentModule === 'twofa' && $currentController === 'check')
+        ) {
+            return;
+        }
+
+        $user = Yii::$app->user->identity;
+        if (!$user->settings->get('hasSeenProfileImageUploadPage')) {
+            $event->isValid = false;
+            $event->result = Yii::$app->response->redirect($user->createUrl('/transition/profile-image/upload'));
+        }
     }
 }

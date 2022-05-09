@@ -8,7 +8,11 @@
 
 namespace humhub\modules\transition;
 
-class Module extends \humhub\components\Module
+use humhub\modules\content\components\ContentContainerModule;
+use humhub\modules\content\components\ContentContainerModuleManager;
+use humhub\modules\user\models\User;
+
+class Module extends ContentContainerModule
 {
 
     /**
@@ -25,5 +29,27 @@ class Module extends \humhub\components\Module
     public function getName()
     {
         return 'Transition Movement';
+    }
+
+
+    /**
+     * @inheritdoc
+     */
+    public function enable()
+    {
+        if (!parent::enable()) {
+            return false;
+        }
+        ContentContainerModuleManager::setDefaultState(User::class, 'transition', 1);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getContentContainerTypes()
+    {
+        return [
+            User::class,
+        ];
     }
 }

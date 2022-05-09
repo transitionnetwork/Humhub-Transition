@@ -8,6 +8,7 @@
 
 /** @noinspection MissedFieldInspection */
 
+use humhub\components\Controller;
 use humhub\modules\admin\widgets\UserMenu;
 use humhub\modules\transition\Events;
 use humhub\modules\user\models\forms\Registration;
@@ -26,6 +27,11 @@ return [
             'class' => Registration::class,
             'event' => Registration::EVENT_AFTER_REGISTRATION,
             'callback' => [Events::class, 'onFormAfterRegistration']
+        ],
+        [
+            'class' => Controller::class,
+            'event' => Controller::EVENT_BEFORE_ACTION,
+            'callback' => [Events::class, 'onBeforeControllerAction']
         ],
     ],
 ];

@@ -12,10 +12,12 @@ namespace humhub\modules\transition\controllers;
 
 use humhub\modules\admin\components\Controller;
 use humhub\modules\admin\permissions\ManageUsers;
+use humhub\modules\content\components\ContentContainerModuleManager;
 use humhub\modules\space\models\Space;
 use humhub\modules\transition\Module;
 use humhub\modules\user\models\fieldtype\Select;
 use humhub\modules\user\models\ProfileField;
+use humhub\modules\user\models\User;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\BaseInflector;
@@ -39,6 +41,7 @@ class AdminController extends Controller
      */
     public function actionDefaultSpaces()
     {
+        ContentContainerModuleManager::setDefaultState(User::class, 'transition', 1); //TODO: to remove
         $title = Yii::t('TransitionModule.config', 'Default spaces');
         $this->subLayout = '@admin/views/layouts/user';
         $this->appendPageTitle($title);

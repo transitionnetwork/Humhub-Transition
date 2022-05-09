@@ -5,6 +5,7 @@ Humhub module for the [Transition Movement](https://transitionnetwork.org/)
 ## Overview
 
 - On account creation, add membership to a space based on the profile field "Country"
+- Theme based on Clean Theme
 
 ## Installation
 
