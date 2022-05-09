@@ -87,6 +87,11 @@ class Events
     }
 
 
+    /**
+     * @param ActionEvent $event
+     * @return void
+     * @throws \yii\base\Exception
+     */
     public static function onBeforeControllerAction(ActionEvent $event)
     {
         if (Yii::$app->user->isGuest) {
@@ -114,7 +119,10 @@ class Events
         }
 
         $user = Yii::$app->user->identity;
-        if (!$user->settings->get('hasSeenProfileImageUploadPage')) {
+        if (
+            !$user->settings->get('hasSeenProfileImageUploadPage')
+            && !$user->getProfileImage()->hasImage()
+        ) {
             $event->isValid = false;
             $event->result = Yii::$app->response->redirect($user->createUrl('/transition/profile-image/upload'));
         }
