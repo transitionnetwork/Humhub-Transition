@@ -88,6 +88,7 @@ class Events
 
 
     /**
+     * Show /transition/profile-image/upload page after registering
      * @param ActionEvent $event
      * @return void
      * @throws \yii\base\Exception
