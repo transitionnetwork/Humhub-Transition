@@ -33,13 +33,15 @@ class Events
         /** @var UserMenu $menu */
         $menu = $event->sender;
 
-        $menu->addEntry(new MenuLink([
-            'label' => Yii::t('TransitionModule.config', 'Default spaces'),
-            'url' => ['/transition/admin/default-spaces'],
-            'sortOrder' => 2000,
-            'isActive' => MenuLink::isActiveState('transition', 'admin', 'default-spaces'),
-            'isVisible' => Yii::$app->user->can(ManageUsers::class),
-        ]));
+        if (Yii::$app->user->can(ManageUsers::class)) { // Don't move in 'isVisible' as it doesn't work in all cases and because the "if" costs less
+            $menu->addEntry(new MenuLink([
+                'label' => Yii::t('TransitionModule.config', 'Default spaces'),
+                'url' => ['/transition/admin/default-spaces'],
+                'sortOrder' => 2000,
+                'isActive' => MenuLink::isActiveState('transition', 'admin', 'default-spaces'),
+                'isVisible' => true,
+            ]));
+        }
     }
 
 

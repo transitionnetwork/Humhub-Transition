@@ -41,7 +41,7 @@ Create migrations : `php yii migrate/create initial --migrationPath='@app/module
         // Add indexes on columns for speeding where operations ; false if values (or values combinaisons if several columns) are not unique 
         $this->createIndex('idx-module_model', 'module_model', ['user_id'], true);
         // Add foreign keys (is related to a table, when deleted in this table, related rows are deleted to, but beforeDelete() and afterDelete() are not called)
-        $this->addForeignKey('fk-module_model-user', 'module_model', 'user_id', '`user`', 'id', 'CASCADE');
+        $this->addForeignKey('fk-module_model-user', 'module_model', 'user_id', 'user', 'id', 'CASCADE');
 ```
 
 Auto translate in all languages
