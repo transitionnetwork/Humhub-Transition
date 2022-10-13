@@ -1,6 +1,6 @@
 # Transition Movement
 
-Humhub module for the [Transition Movement](https://transitionnetwork.org/) It is used on v[ive.transitiontogether.org.uk](https://vive.transitiontogether.org.uk/s/transition-together/) You can preview the theme there. If you would like to support further development you could [donate here](https://opencollective.com/transition-platform)
+Humhub module for the [Transition Movement](https://transitionnetwork.org/) It is used on [vive.transitiontogether.org.uk](https://vive.transitiontogether.org.uk/s/transition-together/) You can preview the theme there. If you would like to support further development you could [donate here](https://opencollective.com/transition-platform)
 
 ## Overview
 
