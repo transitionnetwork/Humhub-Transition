@@ -10,8 +10,9 @@ Humhub module for the [Transition Movement](https://transitionnetwork.org/) It i
 
 ## Installation
 
-Clone [source](https://github.com/transitionnetwork/Humhub-Transition) in `protected/modules`.
-And enable the module.
+1. Clone [source](https://github.com/transitionnetwork/Humhub-Transition) in `protected/modules`.
+2. Enable the module
+3. Set the module as default -> Users -> Always activated
 
 ## Configuration
 
