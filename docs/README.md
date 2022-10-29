@@ -5,6 +5,7 @@ Humhub module for the [Transition Movement](https://transitionnetwork.org/) It i
 ## Overview
 
 - On account creation, add membership to a space based on the profile field "Country"
+- Change the "Spaces" top menu button URL to add a filter showing oldest spaces first
 - Theme based on Clean Theme
 
 ## Installation
