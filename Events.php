@@ -11,6 +11,7 @@ namespace humhub\modules\transition;
 use humhub\modules\admin\permissions\ManageUsers;
 use humhub\modules\admin\widgets\UserMenu;
 use humhub\modules\legal\Module;
+use humhub\modules\rest\components\BaseController;
 use humhub\modules\space\models\Space;
 use humhub\modules\ui\menu\MenuLink;
 use humhub\modules\user\models\User;
@@ -134,7 +135,7 @@ class Events
             || $currentController === 'poll'
             || $currentModule === 'legal'
             || $currentModule === 'transition'
-            || $currentModule === 'rest'
+            || $event->action->controller instanceof BaseController // REST request
             || ($currentModule === 'file' && $currentController === 'file' && $currentAction === 'download')
             || ($currentModule === 'twofa' && $currentController === 'check')
         ) {
