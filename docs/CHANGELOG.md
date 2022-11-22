@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.2 (November 22, 2022)
+--------------------
+- Enh: Added `themes/transition/views/space/membership/requestMembership.php` allowing to edit request to join
+
 1.1 (October 29, 2022)
 --------------------
 - Enh: Change the "Spaces" top menu button URL to add a filter showing oldest spaces first

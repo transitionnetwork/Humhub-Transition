@@ -135,7 +135,7 @@ class Events
             || $currentController === 'poll'
             || $currentModule === 'legal'
             || $currentModule === 'transition'
-            || $event->action->controller instanceof BaseController // REST request
+            || $event->action->controller instanceof BaseController // REST API request (even if from a module)
             || ($currentModule === 'file' && $currentController === 'file' && $currentAction === 'download')
             || ($currentModule === 'twofa' && $currentController === 'check')
         ) {
