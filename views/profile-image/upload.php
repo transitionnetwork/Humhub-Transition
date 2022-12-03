@@ -12,6 +12,7 @@
  */
 
 use humhub\modules\content\widgets\ContainerProfileHeader;
+use humhub\widgets\Button;
 
 ?>
 
@@ -33,7 +34,10 @@ use humhub\modules\content\widgets\ContainerProfileHeader;
         <br>
         <br>
 
-        <?= \humhub\widgets\Button::primary(Yii::t('TransitionModule.profile', 'I\'m done, show me the list of spaces I can join!'))
-            ->link(['/spaces']) ?>
+        <?= Button::primary(Yii::$app->user->getReturnUrl() ?
+            Yii::t('TransitionModule.profile', 'I\'m done!') :
+            Yii::t('TransitionModule.profile', 'I\'m done, show me the list of spaces I can join!')
+        )
+            ->link(Yii::$app->user->getReturnUrl() ?: ['/spaces']) ?>
     </div>
 </div>
