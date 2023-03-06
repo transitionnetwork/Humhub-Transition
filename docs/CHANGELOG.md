@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.3.0 (March 6, 2023)
+--------------------
+- Enh: Possibility to specify a specific group with `Module::spaceAdminsGroupId` to sync all admin users of all spaces with the members of this group
+
 1.2.1 (December 3, 2022)
 --------------------
 - Fix: The link for the button "I\'m done, show me the list of spaces I can join!" (in the page to upload a profile image) is now the return URL (the first URL where the user went before logging in and creating his account)

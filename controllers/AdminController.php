@@ -14,6 +14,7 @@ use humhub\modules\admin\components\Controller;
 use humhub\modules\admin\permissions\ManageUsers;
 use humhub\modules\content\components\ContentContainerModuleManager;
 use humhub\modules\space\models\Space;
+use humhub\modules\transition\jobs\SyncAllSpaceAdmins;
 use humhub\modules\transition\Module;
 use humhub\modules\user\models\fieldtype\Select;
 use humhub\modules\user\models\ProfileField;
@@ -83,5 +84,16 @@ class AdminController extends Controller
             'defaultSpaces' => (array)$settings->getSerialized('defaultSpaces'),
             'spaceItems' => ArrayHelper::map(Space::find()->all(), 'id', 'name'),
         ]);
+    }
+
+    /**
+     * Hidden action
+     * URL: /transition/admin/sync-all-space-admins
+     * @return void
+     */
+    public function actionSyncAllSpaceAdmins()
+    {
+        Yii::$app->queue->push(new SyncAllSpaceAdmins());
+        return 'Space admins sync added to cron jobs!';
     }
 }

@@ -12,7 +12,9 @@ use humhub\modules\admin\permissions\ManageUsers;
 use humhub\modules\admin\widgets\UserMenu;
 use humhub\modules\legal\Module;
 use humhub\modules\rest\components\BaseController;
+use humhub\modules\space\models\Membership;
 use humhub\modules\space\models\Space;
+use humhub\modules\transition\helpers\MembershipHelper;
 use humhub\modules\ui\menu\MenuLink;
 use humhub\modules\user\models\User;
 use humhub\widgets\TopMenu;
@@ -150,5 +152,56 @@ class Events
             $event->isValid = false;
             $event->result = Yii::$app->response->redirect($user->createUrl('/transition/profile-image/upload'));
         }
+    }
+
+    /**
+     * @param $event
+     */
+    public static function onModelSpaceMembershipMemberRemoved($event)
+    {
+        if (!isset($event)) {
+            return;
+        }
+
+        /** @var Membership $membership */
+        $membership = $event; // not $event->sender as it is executed by queue/run
+        $user = $membership->user;
+
+        MembershipHelper::updateMembershipToSpaceAdminsGroup($user);
+    }
+
+    /**
+     * @param $event
+     */
+    public static function onModelSpaceMembershipMemberAdded($event)
+    {
+        if (!isset($event)) {
+            return;
+        }
+
+        /** @var Membership $membership */
+        $membership = $event; // not $event->sender as it is executed by queue/run
+        $user = $membership->user;
+
+        MembershipHelper::updateMembershipToSpaceAdminsGroup($user);
+    }
+
+    /**
+     * @param $event
+     */
+    public static function onModelSpaceMembershipUpdate($event)
+    {
+        if (
+            !isset($event->sender, $event->changedAttributes)
+            || !array_key_exists('group_id', $event->changedAttributes)
+        ) {
+            return;
+        }
+
+        /** @var Membership $membership */
+        $membership = $event->sender;
+        $user = $membership->user;
+
+        MembershipHelper::updateMembershipToSpaceAdminsGroup($user);
     }
 }

@@ -10,6 +10,7 @@
 
 use humhub\components\Controller;
 use humhub\modules\admin\widgets\UserMenu;
+use humhub\modules\space\models\Membership;
 use humhub\modules\transition\Events;
 use humhub\modules\user\models\forms\Registration;
 use humhub\widgets\TopMenu;
@@ -38,6 +39,21 @@ return [
             'class' => Controller::class,
             'event' => Controller::EVENT_BEFORE_ACTION,
             'callback' => [Events::class, 'onBeforeControllerAction']
+        ],
+        [
+            'class' => Membership::class,
+            'event' => Membership::EVENT_MEMBER_ADDED,
+            'callback' => [Events::class, 'onModelSpaceMembershipMemberAdded']
+        ],
+        [
+            'class' => Membership::class,
+            'event' => Membership::EVENT_MEMBER_REMOVED,
+            'callback' => [Events::class, 'onModelSpaceMembershipMemberRemoved']
+        ],
+        [
+            'class' => Membership::class,
+            'event' => Membership::EVENT_AFTER_UPDATE,
+            'callback' => [Events::class, 'onModelSpaceMembershipUpdate']
         ],
     ],
 ];

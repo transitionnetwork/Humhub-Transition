@@ -4,9 +4,10 @@ Humhub module for the [Transition Movement](https://transitionnetwork.org/) It i
 
 ## Overview
 
-- On account creation, add membership to a space based on the profile field "Country"
-- Change the "Spaces" top menu button URL to add a filter showing oldest spaces first
 - Theme based on Clean Theme
+- On account creation, add membership to a space based on the profile field "Country"
+- Change the "Spaces" top menu button URL to add a filter showing the oldest spaces first
+- Possibility to specify a specific group with `Module::spaceAdminsGroupId` to sync all admin users of all spaces with the members of this group (see in configuration)
 
 ## Installation
 
@@ -17,3 +18,20 @@ Humhub module for the [Transition Movement](https://transitionnetwork.org/) It i
 ## Configuration
 
 Enable the module in a space and go the module's settings.
+
+### To sync space admins with the members of a specific group
+
+In the file `protected/config/common.php`:
+```php
+...
+    'modules' => [
+        ...
+        'transition' => [
+            'spaceAdminsGroupId' => 123, // The group ID for space admins
+        ],
+        ...
+    ],
+...
+```
+
+For the first sync, go to https://your-humhub.tld/transition/admin/sync-all-space-admins to add a full sync to the cron job
