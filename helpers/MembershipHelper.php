@@ -49,14 +49,14 @@ class MembershipHelper
         $spaceTags = array_map(static function (Space $space) {
             return $space->name;
         }, Space::findAll(['status' => Space::STATUS_ENABLED]));
-        $user->tagsField = array_diff((array)$user->tagsField, $spaceTags, ($tagFieldToRemove ? [] : [$tagFieldToRemove]));
+        $user->tagsField = array_diff((array)$user->tagsField, $spaceTags, ($tagFieldToRemove ? [] : [$tagFieldToRemove])); // don't remove `(array)` in front of `$user->tagsField` as it could be null
         if ($isSpaceAdmin) {
-            $user->tagsField[] = $spaceAdminsGroup->name;
             /** @var Membership $membership */
             foreach ($membershipQuery->each() as $membership) {
                 $user->tagsField[] = $membership->space->name;
             }
         }
+        $user->tagsField = array_unique($user->tagsField); // In case 2 space have the same name
         $user->save();
 
         // Update user membership (group and related default spaces)
