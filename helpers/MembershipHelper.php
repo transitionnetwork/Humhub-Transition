@@ -62,6 +62,14 @@ class MembershipHelper
                 $spaceAdminsGroup->removeUser($user);
             } catch (StaleObjectException|\Throwable $e) {
             }
+            foreach ($spaceAdminsGroup->getDefaultSpaces() as $space) {
+                if ($space->isMember($user->id)) {
+                    try {
+                        $space->removeMember($user->id);
+                    } catch (InvalidConfigException|\Throwable $e) {
+                    }
+                }
+            }
         }
     }
 }
