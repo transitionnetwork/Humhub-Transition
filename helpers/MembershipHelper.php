@@ -23,7 +23,7 @@ class MembershipHelper
      * @param User|null $user
      * @return void
      */
-    public static function updateMembershipToSpaceAdminsGroup(?User $user, $tagFieldToRemove)
+    public static function updateMembershipToSpaceAdminsGroup(?User $user, $tagFieldToRemove = null)
     {
         if (!$user) {
             return;
