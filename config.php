@@ -11,6 +11,7 @@
 use humhub\components\Controller;
 use humhub\modules\admin\widgets\UserMenu;
 use humhub\modules\space\models\Membership;
+use humhub\modules\space\models\Space;
 use humhub\modules\transition\Events;
 use humhub\modules\user\models\forms\Registration;
 use humhub\widgets\TopMenu;
@@ -54,6 +55,16 @@ return [
             'class' => Membership::class,
             'event' => Membership::EVENT_AFTER_UPDATE,
             'callback' => [Events::class, 'onModelSpaceMembershipUpdate']
+        ],
+        [
+            'class' => Space::class,
+            'event' => Space::EVENT_BEFORE_DELETE,
+            'callback' => [Events::class, 'onModelSpaceBeforeDelete']
+        ],
+        [
+            'class' => Space::class,
+            'event' => Space::EVENT_AFTER_UPDATE,
+            'callback' => [Events::class, 'onModelSpaceAfterUpdate']
         ],
     ],
 ];

@@ -15,6 +15,7 @@ use humhub\modules\rest\components\BaseController;
 use humhub\modules\space\models\Membership;
 use humhub\modules\space\models\Space;
 use humhub\modules\transition\helpers\MembershipHelper;
+use humhub\modules\transition\jobs\SyncAllSpaceAdmins;
 use humhub\modules\ui\menu\MenuLink;
 use humhub\modules\user\models\User;
 use humhub\widgets\TopMenu;
@@ -203,5 +204,44 @@ class Events
         $user = $membership->user;
 
         MembershipHelper::updateMembershipToSpaceAdminsGroup($user);
+    }
+
+    /**
+     * @param $event
+     * @return void
+     */
+    public static function onModelSpaceBeforeDelete($event)
+    {
+        if (empty($event->sender)) {
+            return;
+        }
+
+        /** @var Space $space */
+        $space = $event->sender;
+
+        Yii::$app->queue->push(new SyncAllSpaceAdmins([
+            'tagFieldToRemove' => $space->name,
+        ]));
+    }
+
+    /**
+     * @param $event
+     * @return void
+     */
+    public static function onModelSpaceAfterUpdate($event)
+    {
+        if (
+            !isset($event->sender, $event->changedAttributes)
+            || !array_key_exists('name', $event->changedAttributes)
+        ) {
+            return;
+        }
+
+        /** @var Space $space */
+        $space = $event->sender;
+
+        Yii::$app->queue->push(new SyncAllSpaceAdmins([
+            'tagFieldToRemove' => $space->name,
+        ]));
     }
 }

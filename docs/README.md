@@ -7,7 +7,7 @@ Humhub module for the [Transition Movement](https://transitionnetwork.org/) It i
 - Theme based on Clean Theme
 - On account creation, add membership to a space based on the profile field "Country"
 - Change the "Spaces" top menu button URL to add a filter showing the oldest spaces first
-- Possibility to specify a specific group with `Module::spaceAdminsGroupId` to sync all admin users of all spaces with the members of this group (see in configuration)
+- Possibility to specify a specific group with `Module::spaceAdminsGroupId` to sync all admin users of all spaces with the members of this group (see in configuration) and the members of the related default spaces (space members removal after group member removal).
 
 ## Installation
 

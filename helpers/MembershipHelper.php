@@ -23,7 +23,7 @@ class MembershipHelper
      * @param User|null $user
      * @return void
      */
-    public static function updateMembershipToSpaceAdminsGroup(?User $user)
+    public static function updateMembershipToSpaceAdminsGroup(?User $user, $tagFieldToRemove)
     {
         if (!$user) {
             return;
@@ -39,11 +39,27 @@ class MembershipHelper
             return;
         }
 
-        $isSpaceAdmin = (bool)Membership::find()->where([
+        $membershipQuery = Membership::find()->where([
             'group_id' => Space::USERGROUP_ADMIN,
             'user_id' => $user->id,
-        ])->count();
+        ]);
+        $isSpaceAdmin = (bool)$membershipQuery->count();
 
+        // Update user tags
+        $spaceTags = array_map(static function (Space $space) {
+            return $space->name;
+        }, Space::findAll(['status' => Space::STATUS_ENABLED]));
+        $user->tagsField = array_diff((array)$user->tagsField, $spaceTags, ($tagFieldToRemove ? [] : [$tagFieldToRemove]));
+        if ($isSpaceAdmin) {
+            $user->tagsField[] = $spaceAdminsGroup->name;
+            /** @var Membership $membership */
+            foreach ($membershipQuery->each() as $membership) {
+                $user->tagsField[] = $membership->space->name;
+            }
+        }
+        $user->save();
+
+        // Update user membership (group and related default spaces)
         if (
             $isSpaceAdmin
             && !$spaceAdminsGroup->isMember($user)

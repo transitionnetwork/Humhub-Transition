@@ -17,6 +17,8 @@ use Yii;
 
 class SyncAllSpaceAdmins extends ActiveJob
 {
+    public $tagFieldToRemove;
+
     /**
      * @inheritdoc
      */
@@ -30,7 +32,7 @@ class SyncAllSpaceAdmins extends ActiveJob
 
         /** @var User $user */
         foreach (User::find()->each() as $user) {
-            MembershipHelper::updateMembershipToSpaceAdminsGroup($user);
+            MembershipHelper::updateMembershipToSpaceAdminsGroup($user, $this->tagFieldToRemove);
         }
     }
 }
