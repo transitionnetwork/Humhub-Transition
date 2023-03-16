@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.3.1 (March 16, 2023)
+--------------------
+- Enh: Hide users setting profile tags field (https://helpdesk.transition-space.org/conversation/36)
+
 1.3.0 (March 6, 2023)
 --------------------
 - Enh: Possibility to specify a specific group with `Module::spaceAdminsGroupId` to sync all admin users of all spaces with the members of this group
