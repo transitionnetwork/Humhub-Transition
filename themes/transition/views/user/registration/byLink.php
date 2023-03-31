@@ -3,7 +3,7 @@ require Yii::$app->getModule('user')->viewPath . '/registration/byLink.php';
 ?>
 
 <style>
-    #register-form, .or-container {
+    #registration-form, .or-container {
         display: none !important;
     }
 
