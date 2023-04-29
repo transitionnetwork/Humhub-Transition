@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.3.2 (April 29, 2023)
+--------------------
+- Enh: Added timezone/location and language to account creation workflow
+
 1.3.1 (March 16, 2023)
 --------------------
 - Enh: Hide users setting profile tags field (https://helpdesk.transition-space.org/conversation/36)

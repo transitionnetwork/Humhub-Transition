@@ -26,7 +26,6 @@ use yii\base\Event;
 use yii\base\InvalidConfigException;
 use yii\base\WidgetEvent;
 use yii\helpers\BaseInflector;
-use yii\helpers\Url;
 
 class Events
 {
@@ -40,7 +39,7 @@ class Events
         /** @var TopMenu $menu */
         $menu = $event->sender;
 
-        if ($entry = $menu->getEntryByUrl(Url::to(['/space/spaces']))) {
+        if ($entry = $menu->getEntryByUrl(['/space/spaces'])) {
             $menu->removeEntry($entry);
             $entry->setUrl(['/space/spaces', 'sort' => 'older']);
             $menu->addEntry($entry);
@@ -114,7 +113,6 @@ class Events
 
 
     /**
-     * Show /transition/profile-image/upload page after registering
      * @param ActionEvent $event
      * @return void
      * @throws \yii\base\Exception
@@ -147,11 +145,11 @@ class Events
 
         $user = Yii::$app->user->identity;
         if (
-            !$user->settings->get('hasSeenProfileImageUploadPage')
+            !$user->settings->get('hasSeenAfterRegistrationPage')
             && !$user->getProfileImage()->hasImage()
         ) {
             $event->isValid = false;
-            $event->result = Yii::$app->response->redirect($user->createUrl('/transition/profile-image/upload'));
+            $event->result = Yii::$app->response->redirect($user->createUrl('/transition/after-registration/index'));
         }
     }
 
