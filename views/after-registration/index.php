@@ -50,7 +50,7 @@ use humhub\widgets\Button;
             <?= $form->field($model, 'language')->dropDownList($languages, ['data-ui-select2' => '']); ?>
         <?php endif; ?>
 
-        <?= $form->field($model, 'timeZone')->dropDownList(TimezoneHelper::generateList(true), ['data-ui-select2' => '']); ?>
+        <?= $form->field($model, 'timeZone')->dropDownList(TimezoneHelper::generateList(true), ['data-ui-select2' => ''])->hint(Yii::t('TransitionModule.profile', 'This is an important setting to make sure you see event details correctly. Please set it correctly to your location.')) ?>
 
         <?= Button::primary(Yii::$app->user->getReturnUrl() ?
             Yii::t('TransitionModule.profile', 'I\'m done!') :
