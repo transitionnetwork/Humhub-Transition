@@ -10,6 +10,7 @@
  * @var $this View
  */
 
+use humhub\modules\calendar\helpers\Url;
 use humhub\modules\calendar\widgets\FullCalendar;
 
 ?>
@@ -25,4 +26,5 @@ use humhub\modules\calendar\widgets\FullCalendar;
 
 <?= FullCalendar::widget([
     'canWrite' => false,
+    'loadUrl' => Url::toAjaxLoad(),
 ]) ?>
