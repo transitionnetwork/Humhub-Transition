@@ -8,14 +8,17 @@
 
 namespace humhub\modules\transition;
 
+use humhub\libs\DynamicConfig;
 use humhub\modules\content\components\ContentContainerModule;
 use humhub\modules\content\components\ContentContainerModuleManager;
 use humhub\modules\transition\jobs\SyncAllSpaceAdmins;
+use humhub\modules\ui\view\helpers\ThemeHelper;
 use humhub\modules\user\models\User;
 use Yii;
 
 class Module extends ContentContainerModule
 {
+    const THEME_NAME = 'transition';
 
     /**
      * @var string defines the icon
@@ -38,26 +41,67 @@ class Module extends ContentContainerModule
         return 'Transition Movement';
     }
 
-
-    /**
-     * @inheritdoc
-     */
-    public function enable()
-    {
-        if (!parent::enable()) {
-            return false;
-        }
-
-        ContentContainerModuleManager::setDefaultState(User::class, 'transition', 1);
-
-        Yii::$app->queue->push(new SyncAllSpaceAdmins());
-    }
-
     /**
      * @inheritdoc
      */
     public function getContentContainerTypes()
     {
         return [User::class];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function disable()
+    {
+        $this->disableTheme();
+        parent::disable();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function enable()
+    {
+        if (parent::enable()) {
+            $this->enableTheme();
+            ContentContainerModuleManager::setDefaultState(User::class, 'transition', 1);
+            Yii::$app->queue->push(new SyncAllSpaceAdmins());
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return void
+     */
+    private function enableTheme()
+    {
+        // Already a theme based theme is active
+        foreach (ThemeHelper::getThemeTree(Yii::$app->view->theme) as $theme) {
+            if ($theme->name === self::THEME_NAME) {
+                return;
+            }
+        }
+
+        $theme = ThemeHelper::getThemeByName(self::THEME_NAME);
+        if ($theme !== null) {
+            $theme->activate();
+            DynamicConfig::rewrite();
+        }
+    }
+
+    /**
+     * @return void
+     */
+    private function disableTheme()
+    {
+        foreach (ThemeHelper::getThemeTree(Yii::$app->view->theme) as $theme) {
+            if ($theme->name === self::THEME_NAME) {
+                $ceTheme = ThemeHelper::getThemeByName('HumHub');
+                $ceTheme->activate();
+                break;
+            }
+        }
     }
 }
