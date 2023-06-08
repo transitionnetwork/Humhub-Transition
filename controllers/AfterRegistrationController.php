@@ -10,6 +10,7 @@
 namespace humhub\modules\transition\controllers;
 
 use humhub\modules\content\components\ContentContainerController;
+use humhub\modules\membersMap\models\MembersMapUserLocation;
 use humhub\modules\user\models\forms\AccountSettings;
 use humhub\modules\user\models\User;
 use Yii;
@@ -24,6 +25,8 @@ class AfterRegistrationController extends ContentContainerController
         ];
     }
 
+    public $currentModel;
+
     public function actionIndex()
     {
         if (Yii::$app->user->identity->id != $this->contentContainer->id) {
@@ -34,6 +37,26 @@ class AfterRegistrationController extends ContentContainerController
 
         /** @var User $user */
         $user = $this->contentContainer;
+
+        $model = MembersMapUserLocation::findOne(['user_id' => Yii::$app->user->id]);
+        if ($model === null) {
+            $model = new MembersMapUserLocation();
+            $model->user_id = Yii::$app->user->id;
+        }
+        if ($model->lat_user === null && $model->lat_zip_city === null) {
+
+            if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
+                $this->view->saved();
+            }
+
+            if ($model->lat_user === null) { // To make localisation not required, replace with `else {`
+                $this->currentModel = MembersMapUserLocation::class; // For the _layout
+                return $this->render('@members-map/views/user/location', [
+                    'model' => $model,
+                    'layout' => '@transition/views/after-registration/_layout.php',
+                ]);
+            }
+        }
 
         $user->settings->set('hasSeenAfterRegistrationPage', true);
 
@@ -59,10 +82,12 @@ class AfterRegistrationController extends ContentContainerController
         $col = new \Collator(Yii::$app->language);
         $col->asort($languages);
 
-        return $this->render('index', [
+        $this->currentModel = AccountSettings::class; // For the _layout
+        return $this->render('last-step', [
             'user' => $user,
             'model' => $model,
             'languages' => $languages,
+            'layout' => '@transition/views/after-registration/_layout.php',
         ]);
     }
 }
