@@ -8,7 +8,6 @@
 
 /** @noinspection MissedFieldInspection */
 
-use humhub\components\Controller;
 use humhub\modules\admin\widgets\UserMenu;
 use humhub\modules\space\models\Membership;
 use humhub\modules\space\models\Space;
@@ -35,11 +34,6 @@ return [
             'class' => Registration::class,
             'event' => Registration::EVENT_AFTER_REGISTRATION,
             'callback' => [Events::class, 'onFormAfterRegistration']
-        ],
-        [
-            'class' => Controller::class,
-            'event' => Controller::EVENT_BEFORE_ACTION,
-            'callback' => [Events::class, 'onBeforeControllerAction']
         ],
         [
             'class' => Membership::class,
