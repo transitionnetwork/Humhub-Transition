@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Unreleased
+--------------------
+- Enh: Added profile embed page
+
 1.4 (June 19, 2023)
 --------------------
 - Chg: Removed after registration page (now included in the `registration` module)

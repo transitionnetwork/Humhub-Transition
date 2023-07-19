@@ -16,11 +16,11 @@ use humhub\modules\calendar\widgets\FullCalendar;
 ?>
     <style>
         body {
-            padding-top: 0;
+            padding-top: 0 !important;
         }
 
-        #topbar {
-            display: none;
+        #topbar, #stories-bar {
+            display: none !important;
         }
     </style>
 

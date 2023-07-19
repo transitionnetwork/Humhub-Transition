@@ -31,7 +31,7 @@ class SyncAllSpaceAdmins extends ActiveJob
         }
 
         /** @var User $user */
-        foreach (User::find()->each() as $user) {
+        foreach (User::find()->each(500) as $user) {
             MembershipHelper::updateMembershipToSpaceAdminsGroup($user, $this->tagFieldToRemove);
         }
     }

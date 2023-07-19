@@ -10,11 +10,26 @@
 namespace humhub\modules\transition\controllers;
 
 use humhub\components\Controller;
+use humhub\modules\user\models\User;
 
 class EmbedController extends Controller
 {
     public function actionCalendar()
     {
         return $this->render('calendar');
+    }
+
+    public function actionProfile($username = null, $email = null)
+    {
+        $user = null;
+        if ($username) {
+            $user = User::findOne(['username' => $username]);
+        }
+        if ($email) {
+            $user = User::findOne(['email' => $email]);
+        }
+        return $this->render('profile', [
+            'user' => $user,
+        ]);
     }
 }
