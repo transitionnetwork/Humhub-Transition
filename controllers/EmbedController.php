@@ -11,6 +11,7 @@ namespace humhub\modules\transition\controllers;
 
 use humhub\components\Controller;
 use humhub\modules\user\models\User;
+use Yii;
 
 class EmbedController extends Controller
 {
@@ -28,6 +29,11 @@ class EmbedController extends Controller
         if ($email) {
             $user = User::findOne(['email' => $email]);
         }
+
+        if ($user) {
+            Yii::$app->user->setReturnUrl($user->createUrl(null, [], true));
+        }
+
         return $this->render('profile', [
             'user' => $user,
         ]);
