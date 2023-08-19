@@ -14,31 +14,40 @@
 use humhub\libs\Html;
 use humhub\modules\ui\view\components\View;
 use humhub\modules\user\widgets\Image;
-use humhub\widgets\Button;
 
+$this->beginPage();
+$this->head();
+$this->beginBody();
 ?>
-<style>
-    body {
-        padding: 10px !important;
-    }
 
-    #topbar, #stories-bar {
-        display: none !important;
-    }
-</style>
+    <style>
+        body {
+            padding: 10px !important;
+            background-color: transparent;
+        }
+
+        /*.topbar, #stories-bar {*/
+        /*    display: none !important;*/
+        /*}*/
+    </style>
 
 <?php if (!$user) : ?>
     <?= Yii::t('TransitionModule.base', 'No user found on Humhub') ?>
 <?php else : ?>
-    <?= Button::asLink(
-        Image::widget([
-            'user' => $user,
-            'width' => 35,
-            'link' => false,
-        ]) . ' &nbsp; ' .
-        Html::encode($user->getDisplayName())
-    )
-        ->link($user->createUrl(null, [], true))
-        ->loader(false)
-        ->options(['target' => '_blank']) ?>
+
+    <a href="<?= $user->createUrl(null, [], true) ?>">
+        <div style="float: left; margin-right: 15px;"><?= Image::widget([
+                'user' => $user,
+                'width' => 60,
+                'link' => false,
+            ]) ?></div>
+        <div style="float: left;">
+            <div style="font-weight: bold;"><?= Html::encode($user->getDisplayName()) ?></div>
+            <div><?= Html::encode($user->getDisplayNameSub()) ?></div>
+        </div>
+    </a>
 <?php endif; ?>
+
+<?php
+$this->endBody();
+$this->endPage(true);

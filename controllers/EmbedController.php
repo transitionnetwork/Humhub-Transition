@@ -34,7 +34,7 @@ class EmbedController extends Controller
             Yii::$app->user->setReturnUrl($user->createUrl(null, [], true));
         }
 
-        return $this->render('profile', [
+        return $this->renderPartial('profile', [
             'user' => $user,
         ]);
     }
