@@ -37,16 +37,20 @@ $this->beginBody();
     <?= Yii::t('TransitionModule.base', 'No user found on Humhub') ?>
 <?php else : ?>
 
-    <a href="<?= $user->createUrl(null, [], true) ?>">
-        <div style="float: left; margin-right: 15px;"><?= Image::widget([
+    <a href="<?= $user->createUrl(null, [], true) ?>" style="display: flex;">
+        <div style="margin-right: 15px;"><?= Image::widget([
                 'user' => $user,
                 'width' => 60,
                 'link' => false,
             ]) ?></div>
-        <div style="float: left;">
-            <div style="font-weight: bold;"><?= Html::encode($user->getDisplayName()) ?></div>
-            <div><?= Label::defaultType(Html::encode($user->getDisplayNameSub())) ?></div>
-            <div><?= Html::encode(StringHelper::truncate($user->profile->about, 50)) ?></div>
+        <div style="display: flex; justify-content: space-between; flex-direction: column;">
+            <div style="font-weight: bold;">
+                <?= Label::defaultType(Html::encode($user->getDisplayNameSub()))->right() ?>
+                <?= Html::encode($user->getDisplayName()) ?>
+            </div>
+            <div style="padding-bottom: 10px;">
+                <?= Html::encode(StringHelper::truncate($user->profile->about, 50)) ?>
+            </div>
         </div>
     </a>
 <?php endif; ?>
