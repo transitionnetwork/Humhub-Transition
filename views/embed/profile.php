@@ -27,10 +27,6 @@ $this->beginBody();
             padding: 10px !important;
             background-color: transparent;
         }
-
-        /*.topbar, #stories-bar {*/
-        /*    display: none !important;*/
-        /*}*/
     </style>
 
 <?php if (!$user) : ?>

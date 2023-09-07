@@ -13,14 +13,14 @@
 use humhub\modules\calendar\helpers\Url;
 use humhub\modules\calendar\widgets\FullCalendar;
 
+$this->beginPage();
+$this->head();
+$this->beginBody();
 ?>
     <style>
         body {
-            padding-top: 0 !important;
-        }
-
-        #topbar, #stories-bar {
-            display: none !important;
+            padding: 10px !important;
+            background-color: transparent;
         }
     </style>
 
@@ -28,3 +28,7 @@ use humhub\modules\calendar\widgets\FullCalendar;
     'canWrite' => false,
     'loadUrl' => Url::toAjaxLoad(),
 ]) ?>
+
+<?php
+$this->endBody();
+$this->endPage(true);

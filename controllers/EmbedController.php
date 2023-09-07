@@ -17,7 +17,7 @@ class EmbedController extends Controller
 {
     public function actionCalendar()
     {
-        return $this->render('calendar');
+        return $this->renderPartial('calendar');
     }
 
     public function actionProfile($username = null, $email = null)
