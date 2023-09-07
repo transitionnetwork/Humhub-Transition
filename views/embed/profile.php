@@ -12,8 +12,10 @@
  */
 
 use humhub\libs\Html;
+use humhub\libs\StringHelper;
 use humhub\modules\ui\view\components\View;
 use humhub\modules\user\widgets\Image;
+use humhub\widgets\Label;
 
 $this->beginPage();
 $this->head();
@@ -43,7 +45,8 @@ $this->beginBody();
             ]) ?></div>
         <div style="float: left;">
             <div style="font-weight: bold;"><?= Html::encode($user->getDisplayName()) ?></div>
-            <div><?= Html::encode($user->getDisplayNameSub()) ?></div>
+            <div><?= Label::defaultType(Html::encode($user->getDisplayNameSub())) ?></div>
+            <div><?= Html::encode(StringHelper::truncate($user->profile->about, 50)) ?></div>
         </div>
     </a>
 <?php endif; ?>
