@@ -24,7 +24,7 @@ $this->beginBody();
 
     <style>
         body {
-            padding: 10px !important;
+            padding: 15px !important;
             background-color: transparent;
         }
     </style>
