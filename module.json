@@ -3,9 +3,9 @@
   "name": "Transition Movement",
   "description": "",
   "keywords": [],
-  "version": "1.4",
+  "version": "1.5",
   "humhub": {
-    "minVersion": "1.10"
+    "minVersion": "1.15"
   },
   "homepage": "https://cuzy.app",
   "authors": [

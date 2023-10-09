@@ -1,9 +1,10 @@
 Changelog
 =========
 
-Unreleased
+1.5 (Oct 9, 2023)
 --------------------
 - Enh: Added profile embed page
+- Enh: CSS updated with Clean Theme v1.5.1
 
 1.4 (June 19, 2023)
 --------------------
