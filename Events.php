@@ -92,15 +92,6 @@ class Events
         // Get user from event because Yii::$app->user->id doesnt work here
         $user = User::findOne(['id' => $event->identity->id]);
 
-        // TODO when https://github.com/humhub/humhub/pull/6250 is in the code, do something better to redirect users to the invited space after registration
-        $inviteSpaceId = Yii::$app->session->get('invite_space_id');
-        if ($inviteSpaceId) {
-            $inviteSpace = \humhub\modules\space\models\Space::findOne($inviteSpaceId);
-            if ($inviteSpace && !$inviteSpace->isMember($user->id)) {
-                $inviteSpace->addMember($user->id);
-            }
-        }
-
         if (empty($user->profile->region)) {
             return;
         }
