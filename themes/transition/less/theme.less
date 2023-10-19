@@ -1,0 +1,17 @@
+// Force SSO (disable email login)
+// It is also possible redirect directly to SSO login form: https://community.humhub.com/s/installation-and-setup/wiki/Configuration+Examples#skip-login-form
+#login-form {
+  max-width: 500px !important;
+}
+
+.btn-ac-Keycloak {
+  white-space: normal !important;
+}
+
+#data-has-auth-client[data-has-auth-client="0"] #registration-form, form[action="/user/auth/login"], #register-form, .or-container, #account-login-form {
+  display: none !important;
+}
+
+.authChoice {
+  text-align: center;
+}
