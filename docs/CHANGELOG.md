@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.6 (Nov 1, 2023)
+--------------------
+- Enh: Added https://github.com/humhub/calendar/issues/371 to theme
+
 1.5 (Oct 9, 2023)
 --------------------
 - Enh: Added profile embed page
