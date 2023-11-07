@@ -92,7 +92,7 @@ class Events
         // Get user from event because Yii::$app->user->id doesnt work here
         $user = User::findOne(['id' => $event->identity->id]);
 
-        if (empty($user->profile->region)) {
+        if (!$user->profile->hasAttribute('region')) {
             return;
         }
 

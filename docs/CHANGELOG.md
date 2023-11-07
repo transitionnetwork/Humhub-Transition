@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.6.1 (Nov 7, 2023)
+--------------------
+- Fix: when `region` profile field does not exist
+
 1.6 (Nov 1, 2023)
 --------------------
 - Enh: Added https://github.com/humhub/calendar/issues/371 to theme
