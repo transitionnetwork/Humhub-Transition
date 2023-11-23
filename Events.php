@@ -16,6 +16,7 @@ use humhub\modules\space\models\Space;
 use humhub\modules\transition\helpers\MembershipHelper;
 use humhub\modules\transition\jobs\SyncAllSpaceAdmins;
 use humhub\modules\ui\menu\MenuLink;
+use humhub\modules\user\models\ProfileField;
 use humhub\modules\user\models\User;
 use humhub\widgets\TopMenu;
 use Throwable;
@@ -54,7 +55,10 @@ class Events
         /** @var UserMenu $menu */
         $menu = $event->sender;
 
-        if (Yii::$app->user->can(ManageUsers::class)) { // Don't move in 'isVisible' as it doesn't work in all cases and because the "if" costs less
+        if (
+            Yii::$app->user->can(ManageUsers::class) // Don't move in 'isVisible' as it doesn't work in all cases and because the "if" costs less
+            && ProfileField::findOne(['internal_name' => 'region'])
+        ) {
             $menu->addEntry(new MenuLink([
                 'label' => Yii::t('TransitionModule.config', 'Default spaces'),
                 'url' => ['/transition/admin/default-spaces'],
@@ -96,17 +100,14 @@ class Events
             return;
         }
 
-        $defaultSpaceId = $defaultSpaces[BaseInflector::slug($user->profile->region)] ?? null;
-        if (!$defaultSpaceId) {
+        $defaultSpaceIds = $defaultSpaces[BaseInflector::slug($user->profile->region)] ?? null;
+        if (!$defaultSpaceIds) {
             return;
         }
 
-        $space = Space::findOne($defaultSpaceId);
-        if ($space === null) {
-            return;
+        foreach (Space::findAll($defaultSpaceIds) as $space) {
+            $space->addMember($user->id);
         }
-
-        $space->addMember($user->id);
     }
 
     /**

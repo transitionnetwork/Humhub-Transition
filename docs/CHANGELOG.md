@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.7.0 (Nov 23, 2023)
+--------------------
+- Enh #840: Region selection multi-select
+
 1.6.1 (Nov 7, 2023)
 --------------------
 - Fix: when `region` profile field does not exist

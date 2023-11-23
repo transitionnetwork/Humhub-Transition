@@ -8,6 +8,7 @@
 
 use humhub\libs\Html;
 use humhub\modules\admin\widgets\AdminMenu;
+use humhub\modules\space\widgets\SpacePickerField;
 use humhub\modules\ui\view\components\View;
 use yii\helpers\BaseInflector;
 
@@ -16,7 +17,6 @@ use yii\helpers\BaseInflector;
  * @var $title string
  * @var $regionItems array
  * @var $defaultSpaces array
- * @var $spaceItems array
  */
 
 AdminMenu::markAsActive(['/admin/default-spaces']);
@@ -37,18 +37,16 @@ AdminMenu::markAsActive(['/admin/default-spaces']);
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($regionItems as $key => $label): ?>
-            <?php $key = BaseInflector::slug($key); ?>
+        <?php foreach ($regionItems as $regionKey => $regionLabel): ?>
+            <?php $regionKey = BaseInflector::slug($regionKey); ?>
             <tr>
-                <th scope="row"><?= $label ?></th>
+                <th scope="row"><?= $regionLabel ?></th>
                 <td>
-                    <?= Html::dropDownList('space-' . $key, $defaultSpaces[$key] ?? null, $spaceItems, ['prompt' => '']) ?>
-                    <?php /* SpacePickerField::widget([
-                        'id' => 'space-picker-' . $key,
-                        'name' => 'space-' . $key,
+                    <?= SpacePickerField::widget([
+                        'name' => 'space-' . $regionKey,
                         'maxSelection' => 5,
-                        'value' => $defaultSpaces[$key] ?? null,
-                    ]) */ ?>
+                        'selection' => $defaultSpaces[$regionKey] ?? [],
+                    ]) ?>
                 </td>
             </tr>
         <?php endforeach; ?>

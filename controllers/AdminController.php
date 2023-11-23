@@ -20,7 +20,6 @@ use humhub\modules\user\models\fieldtype\Select;
 use humhub\modules\user\models\ProfileField;
 use humhub\modules\user\models\User;
 use Yii;
-use yii\helpers\ArrayHelper;
 use yii\helpers\BaseInflector;
 use yii\web\HttpException;
 
@@ -64,25 +63,29 @@ class AdminController extends Controller
         $settings = $module->settings;
 
         if ($post = Yii::$app->request->post()) {
-            $defaultSpaces = [];
-            foreach ($regionItems as $key => $label) {
-                $key = BaseInflector::slug($key);
-                $defaultSpaces[$key] = $post['space-' . $key] ?? null;
-//                if (!isset($post['space-' . $key])) {
-//                    continue;
-//                }
+            $defaultSpaceIds = [];
+            foreach ($regionItems as $regionKey => $regionLabel) {
+                $regionKey = BaseInflector::slug($regionKey);
+                if (!array_key_exists('space-' . $regionKey, $post)) {
+                    continue;
+                }
                 // Convert Space Guids to IDs
-//                $defaultSpaces[$key] = array_keys(Space::find()->where(['guid' => $post['space-' . $key]])->indexBy('id')->all());
+                $defaultSpaceIds[$regionKey] = Space::find()->where(['guid' => $post['space-' . $regionKey]])->select('id')->column();
             }
-            $settings->setSerialized('defaultSpaces', $defaultSpaces);
+            $settings->setSerialized('defaultSpaces', $defaultSpaceIds);
             $this->view->saved();
+        }
+
+        // Get default spaces
+        $defaultSpaces = [];
+        foreach ((array)$settings->getSerialized('defaultSpaces') as $region => $regionDefaultSpaceIds) {
+            $defaultSpaces[$region] = Space::find()->where(['id' => $regionDefaultSpaceIds])->all();
         }
 
         return $this->render('default-spaces', [
             'title' => $title,
             'regionItems' => $regionItems,
-            'defaultSpaces' => (array)$settings->getSerialized('defaultSpaces'),
-            'spaceItems' => ArrayHelper::map(Space::find()->all(), 'id', 'name'),
+            'defaultSpaces' => $defaultSpaces,
         ]);
     }
 
