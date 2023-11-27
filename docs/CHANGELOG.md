@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.7.1 (Nov 27, 2023)
+--------------------
+- Enh #809: When creating an event, better visibility of the timezone
+
 1.7.0 (Nov 23, 2023)
 --------------------
 - Enh #840: Region selection multi-select

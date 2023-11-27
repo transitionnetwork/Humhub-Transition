@@ -18,7 +18,7 @@ use Yii;
 
 class Module extends ContentContainerModule
 {
-    const THEME_NAME = 'transition';
+    public const THEME_NAME = 'transition';
 
     /**
      * @var string defines the icon
@@ -77,7 +77,7 @@ class Module extends ContentContainerModule
      */
     private function enableTheme()
     {
-        // Already a theme based theme is active
+        // Check if already active
         foreach (ThemeHelper::getThemeTree(Yii::$app->view->theme) as $theme) {
             if ($theme->name === self::THEME_NAME) {
                 return;
