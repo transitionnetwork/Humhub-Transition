@@ -1,6 +1,8 @@
 Changelog
 =========
 
+- Chg: Remove `'sort' => 'older'` for the "Spaces" top menu entry
+
 1.7.1 (Nov 27, 2023)
 --------------------
 - Enh #809: When creating an event, better visibility of the timezone

@@ -40,7 +40,7 @@ class Events
 
         if ($entry = $menu->getEntryByUrl(['/space/spaces'])) {
             $menu->removeEntry($entry);
-            $entry->setUrl(['/space/spaces', 'sort' => 'older']);
+            $entry->setUrl(['/space/spaces']);
             $menu->addEntry($entry);
         }
     }
