@@ -38,4 +38,9 @@ class EmbedController extends Controller
             'user' => $user,
         ]);
     }
+
+    public function actionMailConversationSidebar()
+    {
+        return $this->renderPartial('mail-conversation-sidebar');
+    }
 }

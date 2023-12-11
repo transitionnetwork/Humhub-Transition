@@ -1,7 +1,10 @@
 Changelog
 =========
 
+Unreleased
+--------------------
 - Chg: Remove `'sort' => 'older'` for the "Spaces" top menu entry
+- Enh: Added `transition/embed/mail-conversation-sidebar`
 
 1.7.1 (Nov 27, 2023)
 --------------------
