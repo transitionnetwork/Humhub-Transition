@@ -18,33 +18,14 @@ use humhub\modules\transition\jobs\SyncAllSpaceAdmins;
 use humhub\modules\ui\menu\MenuLink;
 use humhub\modules\user\models\ProfileField;
 use humhub\modules\user\models\User;
-use humhub\widgets\TopMenu;
 use Throwable;
 use Yii;
 use yii\base\Event;
 use yii\base\InvalidConfigException;
-use yii\base\WidgetEvent;
 use yii\helpers\BaseInflector;
 
 class Events
 {
-    /**
-     * On build of the TopMenu
-     *
-     * @param WidgetEvent $event
-     */
-    public static function onTopMenuBeforeRun($event)
-    {
-        /** @var TopMenu $menu */
-        $menu = $event->sender;
-
-        if ($entry = $menu->getEntryByUrl(['/space/spaces'])) {
-            $menu->removeEntry($entry);
-            $entry->setUrl(['/space/spaces']);
-            $menu->addEntry($entry);
-        }
-    }
-
     /**
      * @param Event $event
      * @throws Throwable

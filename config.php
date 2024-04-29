@@ -13,18 +13,12 @@ use humhub\modules\space\models\Membership;
 use humhub\modules\space\models\Space;
 use humhub\modules\transition\Events;
 use humhub\modules\user\models\forms\Registration;
-use humhub\widgets\TopMenu;
 
 return [
     'id' => 'transition',
     'class' => humhub\modules\transition\Module::class,
     'namespace' => 'humhub\modules\transition',
     'events' => [
-        [
-            'class' => TopMenu::class,
-            'event' => TopMenu::EVENT_BEFORE_RUN,
-            'callback' => [Events::class, 'onTopMenuBeforeRun']
-        ],
         [
             'class' => UserMenu::class,
             'event' => UserMenu::EVENT_INIT,
