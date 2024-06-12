@@ -7,6 +7,7 @@ Unreleased
 - Enh: Added `transition/embed/mail-conversation-sidebar`
 - Enh: Added `transition/embed/notification-overview`
 - Cgh #1041: Changed @background-color-page to #f0f2f5'
+- Cgn #1232: Darken space description in the Space directory
 
 1.7.1 (Nov 27, 2023)
 --------------------
