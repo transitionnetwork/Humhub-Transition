@@ -8,10 +8,11 @@
 
 /**
  * @var $this View
+ * @var $space Space
  */
 
-use humhub\modules\calendar\helpers\Url;
-use humhub\modules\calendar\widgets\FullCalendar;
+use humhub\modules\space\models\Space;
+use humhub\modules\stream\widgets\StreamViewer;
 use humhub\modules\ui\view\components\View;
 
 $this->beginPage();
@@ -25,9 +26,10 @@ $this->beginBody();
         }
     </style>
 
-<?= FullCalendar::widget([
-    'canWrite' => false,
-    'loadUrl' => Url::toAjaxLoad(),
+<?= StreamViewer::widget([
+    'contentContainer' => $space,
+    'streamAction' => '/space/space/stream',
+    'messageStreamEmpty' => Yii::t('SpaceModule.base', '<b>This space is still empty!</b>'),
 ]) ?>
 
 <?php

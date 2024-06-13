@@ -13,10 +13,12 @@ use humhub\components\Controller;
 use humhub\modules\notification\models\forms\FilterForm;
 use humhub\modules\notification\models\Notification;
 use humhub\modules\notification\widgets\OverviewWidget;
+use humhub\modules\space\models\Space;
 use humhub\modules\user\models\User;
 use Yii;
 use yii\db\IntegrityException;
 use yii\web\ForbiddenHttpException;
+use yii\web\NotFoundHttpException;
 
 class EmbedController extends Controller
 {
@@ -25,6 +27,15 @@ class EmbedController extends Controller
     public function actionCalendar()
     {
         return $this->renderPartial('calendar');
+    }
+
+    public function actionSpaceStream($id)
+    {
+        $space = Space::findOne($id);
+        if (!$space) {
+            throw new NotFoundHttpException('Space not found with ID: ' . $id);
+        }
+        return $this->renderPartial('spaceStream', ['space' => $space]);
     }
 
     public function actionProfile($username = null, $email = null)
