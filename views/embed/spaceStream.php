@@ -24,6 +24,10 @@ $this->beginBody();
             padding: 15px !important;
             background-color: transparent;
         }
+
+        #wall-stream-filter-nav {
+            display: none;
+        }
     </style>
 
 <?= StreamViewer::widget([
