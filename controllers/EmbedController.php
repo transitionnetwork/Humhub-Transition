@@ -29,11 +29,11 @@ class EmbedController extends Controller
         return $this->renderPartial('calendar');
     }
 
-    public function actionSpaceStream($id)
+    public function actionSpaceStream($url)
     {
-        $space = Space::findOne($id);
+        $space = Space::findOne(['url' => $url]);
         if (!$space) {
-            throw new NotFoundHttpException('Space not found with ID: ' . $id);
+            throw new NotFoundHttpException('Space not found with URL: ' . $url);
         }
         return $this->renderPartial('spaceStream', ['space' => $space]);
     }
