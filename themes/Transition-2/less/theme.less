@@ -1,0 +1,36 @@
+// Force SSO (disable email login) - https://community.humhub.com/s/theming-appearance/wiki/246/Hide+local+Registration+and+Login+form+to+display+AuthClient+button+only
+// It is also possible redirect directly to SSO login form: https://community.humhub.com/s/installation-and-setup/wiki/80/Configuration+Examples#redirect-local-login-form-to-authclient
+#login-form {
+  max-width: 500px !important;
+}
+
+.btn-ac-Keycloak {
+  white-space: normal !important;
+}
+
+#user-auth-login-modal #tabs,
+#create-account-form[data-has-auth-client="0"] #registration-form,
+form[action="/user/auth/login"],
+#register-form,
+#account-login-form,
+.or-container {
+  display: none !important;
+}
+
+.authChoice {
+  text-align: center;
+}
+
+#calendar-entry-form a.timeZoneToggle {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#calendar-entry-form .timeZoneInputContainer {
+  display: block !important;
+}
+
+// Darken space description in the Space directory
+.container-cards .card .card-body .card-details {
+  color: #33373d;
+}

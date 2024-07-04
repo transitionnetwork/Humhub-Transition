@@ -6,8 +6,6 @@
  * @author [Marc FARRE](https://marc.fun) for [Transition Movement](https://transitionnetwork.org/)
  */
 
-/** @noinspection MissedFieldInspection */
-
 use humhub\modules\admin\widgets\UserMenu;
 use humhub\modules\space\models\Membership;
 use humhub\modules\space\models\Space;

@@ -29,7 +29,7 @@ Unreleased
 1.5 (Oct 9, 2023)
 --------------------
 - Enh: Added profile embed page
-- Enh: CSS updated with Clean Theme v1.5.1 & Humhub 1.15
+- Enh: CSS updated with Clean Theme v1.5.1 & HumHub 1.15
 
 1.4 (June 19, 2023)
 --------------------
@@ -49,13 +49,11 @@ Unreleased
 
 1.3.0 (March 6, 2023)
 --------------------
-- Enh: Possibility to specify a specific group with `Module::spaceAdminsGroupId` to sync all admin users of all spaces
-  with the members of this group
+- Enh: Possibility to specify a specific group with `Module::spaceAdminsGroupId` to sync all admin users of all spaces with the members of this group
 
 1.2.1 (December 3, 2022)
 --------------------
-- Fix: The link for the button "I\'m done, show me the list of spaces I can join!" (in the page to upload a profile
-  image) is now the return URL (the first URL where the user went before logging in and creating his account)
+- Fix: The link for the button "I\'m done, show me the list of spaces I can join!" (in the page to upload a profile image) is now the return URL (the first URL where the user went before logging in and creating his account)
 
 1.2 (November 22, 2022)
 --------------------
@@ -67,7 +65,7 @@ Unreleased
 
 1.0.1 (October 13, 2022)
 --------------------
-- Chg: Theme compiled for Humhub 1.12
+- Chg: Theme compiled for HumHub 1.12
 
 1.0 (April, 27, 2022)
 --------------------
