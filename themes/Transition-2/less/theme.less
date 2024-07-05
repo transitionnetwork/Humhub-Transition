@@ -34,3 +34,11 @@ form[action="/user/auth/login"],
 .container-cards .card .card-body .card-details {
   color: #33373d;
 }
+
+// Add "Pinned" after the pinned icon
+.wall-entry .wall-entry-header .stream-entry-icon-list .icon-pin::after {
+  content: " " attr(data-original-title);
+  margin-right: 5px;
+  font-style: normal;
+  font-family: Arial, sans-serif;
+}
