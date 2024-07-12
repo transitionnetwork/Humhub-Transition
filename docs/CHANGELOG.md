@@ -1,7 +1,7 @@
 Changelog
 =========
 
-Unreleased
+2.0 (July 12, 2024)
 --------------------
 - Chg: Remove `'sort' => 'older'` for the "Spaces" top menu entry
 - Enh: Added `transition/embed/mail-conversation-sidebar`
@@ -9,6 +9,7 @@ Unreleased
 - Cgh #1041: Changed @background-color-page to #f0f2f5'
 - Cgn #1232: Darken space description in the Space directory
 - Enh #1260: Space stream page to be embedded
+- Enh: New theme version 2 for Clean Theme version 2
 
 1.7.1 (Nov 27, 2023)
 --------------------
