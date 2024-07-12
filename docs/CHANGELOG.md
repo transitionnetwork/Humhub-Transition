@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Unreleased
+--------------------
+- Chg: Rename `Module::$spaceAdminsGroupId` to `Module::$spaceHostsGroupId`
+- Cgh: Space hosts are now Space admins and moderators (they were only admins before)
+
 2.0 (July 12, 2024)
 --------------------
 - Chg: Remove `'sort' => 'older'` for the "Spaces" top menu entry

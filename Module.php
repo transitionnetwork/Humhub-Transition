@@ -11,7 +11,7 @@ namespace humhub\modules\transition;
 use humhub\libs\DynamicConfig;
 use humhub\modules\content\components\ContentContainerModule;
 use humhub\modules\content\components\ContentContainerModuleManager;
-use humhub\modules\transition\jobs\SyncAllSpaceAdmins;
+use humhub\modules\transition\jobs\SyncAllSpaceHosts;
 use humhub\modules\ui\view\helpers\ThemeHelper;
 use humhub\modules\user\models\User;
 use Yii;
@@ -31,9 +31,9 @@ class Module extends ContentContainerModule
     public $resourcesPath = 'resources';
 
     /**
-     * @var int Group ID for the administrators of spaces
+     * @var int Group ID for the "Space hosts" group (for spaces' administrators and moderators)
      */
-    public $spaceAdminsGroupId;
+    public $spaceHostsGroupId;
 
 
     public function getName()
@@ -66,7 +66,7 @@ class Module extends ContentContainerModule
         if (parent::enable()) {
             $this->enableTheme();
             ContentContainerModuleManager::setDefaultState(User::class, 'transition', 1);
-            Yii::$app->queue->push(new SyncAllSpaceAdmins());
+            Yii::$app->queue->push(new SyncAllSpaceHosts());
             return true;
         }
         return false;

@@ -15,7 +15,7 @@ use humhub\modules\transition\Module;
 use humhub\modules\user\models\User;
 use Yii;
 
-class SyncAllSpaceAdmins extends ActiveJob
+class SyncAllSpaceHosts extends ActiveJob
 {
     public $tagFieldToRemove;
 
@@ -26,13 +26,13 @@ class SyncAllSpaceAdmins extends ActiveJob
     {
         /** @var Module $module */
         $module = Yii::$app->getModule('transition');
-        if (!$module->spaceAdminsGroupId) {
+        if (!$module->spaceHostsGroupId) {
             return;
         }
 
         /** @var User $user */
         foreach (User::find()->each(500) as $user) {
-            MembershipHelper::updateMembershipToSpaceAdminsGroup($user, $this->tagFieldToRemove);
+            MembershipHelper::updateUserTagsAndMembershipToSpaceHostsGroup($user, $this->tagFieldToRemove);
         }
     }
 }

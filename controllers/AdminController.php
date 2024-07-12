@@ -14,7 +14,7 @@ use humhub\modules\admin\components\Controller;
 use humhub\modules\admin\permissions\ManageUsers;
 use humhub\modules\content\components\ContentContainerModuleManager;
 use humhub\modules\space\models\Space;
-use humhub\modules\transition\jobs\SyncAllSpaceAdmins;
+use humhub\modules\transition\jobs\SyncAllSpaceHosts;
 use humhub\modules\transition\Module;
 use humhub\modules\user\models\fieldtype\Select;
 use humhub\modules\user\models\ProfileField;
@@ -96,7 +96,7 @@ class AdminController extends Controller
      */
     public function actionSyncAllSpaceAdmins()
     {
-        Yii::$app->queue->push(new SyncAllSpaceAdmins());
+        Yii::$app->queue->push(new SyncAllSpaceHosts());
         return 'Space admins sync added to cron jobs!';
     }
 }

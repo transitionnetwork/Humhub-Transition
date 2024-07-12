@@ -23,7 +23,7 @@ class MembershipHelper
      * @param User|null $user
      * @return void
      */
-    public static function updateMembershipToSpaceAdminsGroup(?User $user, $tagFieldToRemove = null)
+    public static function updateUserTagsAndMembershipToSpaceHostsGroup(?User $user, $tagFieldToRemove = null)
     {
         if (!$user) {
             return;
@@ -31,54 +31,54 @@ class MembershipHelper
 
         /** @var Module $module */
         $module = Yii::$app->getModule('transition');
-        if (!$module->spaceAdminsGroupId) {
+        if (!$module->spaceHostsGroupId) {
             return;
         }
-        $spaceAdminsGroup = Group::findOne($module->spaceAdminsGroupId);
-        if ($spaceAdminsGroup === null) {
+        $spaceHostsGroup = Group::findOne($module->spaceHostsGroupId);
+        if ($spaceHostsGroup === null) {
             return;
         }
 
         $membershipQuery = Membership::find()->where([
-            'group_id' => Space::USERGROUP_ADMIN,
+            'group_id' => [Space::USERGROUP_ADMIN, Space::USERGROUP_MODERATOR],
             'user_id' => $user->id,
         ]);
-        $isSpaceAdmin = (bool)$membershipQuery->count();
+        $isSpaceHost = (bool)$membershipQuery->count();
 
-        // Update user tags
+        // Update user tags (As a Space host user, for each space where the user is an admin or moderator, a tag of the space name is attached to the user account)
         $spaceTags = array_map(static function (Space $space) {
             return $space->name;
         }, Space::findAll(['status' => Space::STATUS_ENABLED]));
         $user->tagsField = array_diff((array)$user->tagsField, $spaceTags, ($tagFieldToRemove ? [] : [$tagFieldToRemove])); // don't remove `(array)` in front of `$user->tagsField` as it could be null
-        if ($isSpaceAdmin) {
+        if ($isSpaceHost) {
             /** @var Membership $membership */
             foreach ($membershipQuery->each() as $membership) {
                 $user->tagsField[] = $membership->space->name;
             }
         }
-        $user->tagsField = array_unique($user->tagsField); // In case 2 space have the same name
+        $user->tagsField = array_unique($user->tagsField); // If 2 Spaces have the same name
         $user->save();
 
         // Update user membership (group and related default spaces)
         if (
-            $isSpaceAdmin
-            && !$spaceAdminsGroup->isMember($user)
+            $isSpaceHost
+            && !$spaceHostsGroup->isMember($user)
         ) {
             try {
-                $spaceAdminsGroup->addUser($user);
+                $spaceHostsGroup->addUser($user);
             } catch (InvalidConfigException $e) {
             }
         }
 
         if (
-            !$isSpaceAdmin
-            && $spaceAdminsGroup->isMember($user)
+            !$isSpaceHost
+            && $spaceHostsGroup->isMember($user)
         ) {
             try {
-                $spaceAdminsGroup->removeUser($user);
+                $spaceHostsGroup->removeUser($user);
             } catch (StaleObjectException|\Throwable $e) {
             }
-            foreach ($spaceAdminsGroup->getDefaultSpaces() as $space) {
+            foreach ($spaceHostsGroup->getDefaultSpaces() as $space) {
                 if ($space->isMember($user->id)) {
                     try {
                         $space->removeMember($user->id);

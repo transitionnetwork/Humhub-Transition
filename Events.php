@@ -14,7 +14,7 @@ use humhub\modules\legal\Module;
 use humhub\modules\space\models\Membership;
 use humhub\modules\space\models\Space;
 use humhub\modules\transition\helpers\MembershipHelper;
-use humhub\modules\transition\jobs\SyncAllSpaceAdmins;
+use humhub\modules\transition\jobs\SyncAllSpaceHosts;
 use humhub\modules\ui\menu\MenuLink;
 use humhub\modules\user\models\ProfileField;
 use humhub\modules\user\models\User;
@@ -104,7 +104,7 @@ class Events
         $membership = $event; // not $event->sender as it is executed by queue/run
         $user = $membership->user;
 
-        MembershipHelper::updateMembershipToSpaceAdminsGroup($user);
+        MembershipHelper::updateUserTagsAndMembershipToSpaceHostsGroup($user);
     }
 
     /**
@@ -120,7 +120,7 @@ class Events
         $membership = $event; // not $event->sender as it is executed by queue/run
         $user = $membership->user;
 
-        MembershipHelper::updateMembershipToSpaceAdminsGroup($user);
+        MembershipHelper::updateUserTagsAndMembershipToSpaceHostsGroup($user);
     }
 
     /**
@@ -139,7 +139,7 @@ class Events
         $membership = $event->sender;
         $user = $membership->user;
 
-        MembershipHelper::updateMembershipToSpaceAdminsGroup($user);
+        MembershipHelper::updateUserTagsAndMembershipToSpaceHostsGroup($user);
     }
 
     /**
@@ -155,7 +155,7 @@ class Events
         /** @var Space $space */
         $space = $event->sender;
 
-        Yii::$app->queue->push(new SyncAllSpaceAdmins([
+        Yii::$app->queue->push(new SyncAllSpaceHosts([
             'tagFieldToRemove' => $space->name,
         ]));
     }
@@ -176,7 +176,7 @@ class Events
         /** @var Space $space */
         $space = $event->sender;
 
-        Yii::$app->queue->push(new SyncAllSpaceAdmins([
+        Yii::$app->queue->push(new SyncAllSpaceHosts([
             'tagFieldToRemove' => $space->name,
         ]));
     }
