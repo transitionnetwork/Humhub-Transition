@@ -6,6 +6,13 @@
  * @author [Marc FARRE](https://marc.fun) for [Transition Movement](https://transitionnetwork.org/)
  */
 
+use humhub\assets\AppAsset;
+use humhub\modules\cleanTheme\assets\CleanThemeAsset;
+use humhub\modules\ui\view\components\View;
+
+AppAsset::register($this);
+CleanThemeAsset::register($this);
+
 /**
  * @var $this View
  */

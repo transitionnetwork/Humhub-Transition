@@ -10,9 +10,14 @@
  * @var $this View
  */
 
+use humhub\assets\AppAsset;
 use humhub\modules\calendar\helpers\Url;
 use humhub\modules\calendar\widgets\FullCalendar;
+use humhub\modules\cleanTheme\assets\CleanThemeAsset;
 use humhub\modules\ui\view\components\View;
+
+AppAsset::register($this);
+CleanThemeAsset::register($this);
 
 $this->beginPage();
 $this->head();

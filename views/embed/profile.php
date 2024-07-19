@@ -11,11 +11,16 @@
  * @var $user \humhub\modules\user\models\User
  */
 
+use humhub\assets\AppAsset;
 use humhub\libs\Html;
 use humhub\libs\StringHelper;
+use humhub\modules\cleanTheme\assets\CleanThemeAsset;
 use humhub\modules\ui\view\components\View;
 use humhub\modules\user\widgets\Image;
 use humhub\widgets\Label;
+
+AppAsset::register($this);
+CleanThemeAsset::register($this);
 
 $this->beginPage();
 $this->head();

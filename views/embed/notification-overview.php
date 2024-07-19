@@ -11,8 +11,13 @@
  * @var $overview OverviewWidget
  */
 
+use humhub\assets\AppAsset;
+use humhub\modules\cleanTheme\assets\CleanThemeAsset;
 use humhub\modules\notification\widgets\OverviewWidget;
 use humhub\modules\ui\view\components\View;
+
+AppAsset::register($this);
+CleanThemeAsset::register($this);
 
 $this->beginPage();
 $this->head();
