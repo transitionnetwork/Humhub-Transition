@@ -5,6 +5,7 @@ Unreleased
 --------------------
 - Chg: Rename `Module::$spaceAdminsGroupId` to `Module::$spaceHostsGroupId`
 - Cgh: Space hosts are now Space admins and moderators (they were only admins before)
+- Enh https://helpdesk.transition-space.org/conversation/1427?folder_id=23: Allocate user header colour if not user-selected
 
 2.0 (July 12, 2024)
 --------------------
