@@ -6,6 +6,7 @@ Unreleased
 - Chg: Rename `Module::$spaceAdminsGroupId` to `Module::$spaceHostsGroupId`
 - Cgh: Space hosts are now Space admins and moderators (they were only admins before)
 - Enh https://helpdesk.transition-space.org/conversation/1427?folder_id=23: Allocate user header colour if not user-selected
+- Chg: Rename theme to `Transition`
 
 2.0 (July 12, 2024)
 --------------------
@@ -64,7 +65,7 @@ Unreleased
 
 1.2 (November 22, 2022)
 --------------------
-- Enh: Added `themes/transition/views/space/membership/requestMembership.php` allowing to edit request to join
+- Enh: Added `themes/Transition/views/space/membership/requestMembership.php` allowing to edit request to join
 
 1.1 (October 29, 2022)
 --------------------
