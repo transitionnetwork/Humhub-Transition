@@ -6,9 +6,7 @@
  * @author [Marc FARRE](https://marc.fun) for [Transition Movement](https://transitionnetwork.org/)
  */
 
-
 namespace humhub\modules\transition\controllers;
-
 
 use humhub\modules\admin\components\Controller;
 use humhub\modules\admin\permissions\ManageUsers;
@@ -22,7 +20,6 @@ use humhub\modules\user\models\User;
 use Yii;
 use yii\helpers\BaseInflector;
 use yii\web\HttpException;
-
 
 class AdminController extends Controller
 {

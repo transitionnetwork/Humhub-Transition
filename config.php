@@ -20,38 +20,37 @@ return [
         [
             'class' => UserMenu::class,
             'event' => UserMenu::EVENT_INIT,
-            'callback' => [Events::class, 'onAdminUserMenuInit']
+            'callback' => [Events::class, 'onAdminUserMenuInit'],
         ],
         [
             'class' => Registration::class,
             'event' => Registration::EVENT_AFTER_REGISTRATION,
-            'callback' => [Events::class, 'onFormAfterRegistration']
+            'callback' => [Events::class, 'onFormAfterRegistration'],
         ],
         [
             'class' => Membership::class,
             'event' => Membership::EVENT_MEMBER_ADDED,
-            'callback' => [Events::class, 'onModelSpaceMembershipMemberAdded']
+            'callback' => [Events::class, 'onModelSpaceMembershipMemberAdded'],
         ],
         [
             'class' => Membership::class,
             'event' => Membership::EVENT_MEMBER_REMOVED,
-            'callback' => [Events::class, 'onModelSpaceMembershipMemberRemoved']
+            'callback' => [Events::class, 'onModelSpaceMembershipMemberRemoved'],
         ],
         [
             'class' => Membership::class,
             'event' => Membership::EVENT_AFTER_UPDATE,
-            'callback' => [Events::class, 'onModelSpaceMembershipUpdate']
+            'callback' => [Events::class, 'onModelSpaceMembershipUpdate'],
         ],
         [
             'class' => Space::class,
             'event' => Space::EVENT_BEFORE_DELETE,
-            'callback' => [Events::class, 'onModelSpaceBeforeDelete']
+            'callback' => [Events::class, 'onModelSpaceBeforeDelete'],
         ],
         [
             'class' => Space::class,
             'event' => Space::EVENT_AFTER_UPDATE,
-            'callback' => [Events::class, 'onModelSpaceAfterUpdate']
+            'callback' => [Events::class, 'onModelSpaceAfterUpdate'],
         ],
     ],
 ];
-?>

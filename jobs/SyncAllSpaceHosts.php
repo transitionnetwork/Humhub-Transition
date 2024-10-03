@@ -8,7 +8,6 @@
 
 namespace humhub\modules\transition\jobs;
 
-
 use humhub\modules\queue\ActiveJob;
 use humhub\modules\transition\helpers\MembershipHelper;
 use humhub\modules\transition\Module;

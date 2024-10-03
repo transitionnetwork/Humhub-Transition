@@ -6,7 +6,6 @@
  * @author [Marc FARRE](https://marc.fun) for [Transition Movement](https://transitionnetwork.org/)
  */
 
-
 namespace humhub\modules\transition\controllers;
 
 use humhub\components\Controller;
@@ -22,7 +21,7 @@ use yii\web\NotFoundHttpException;
 
 class EmbedController extends Controller
 {
-    const PAGINATION_PAGE_SIZE = 1000;
+    public const PAGINATION_PAGE_SIZE = 1000;
 
     public function actionCalendar()
     {
