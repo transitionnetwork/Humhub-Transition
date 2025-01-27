@@ -9,25 +9,31 @@ use yii\web\View;
 /* @var $this View */
 /* @var $user User */
 
-$cardHeaderBgColors = [
-    0 => "#E40303",
-    1 => "#FF8C00",
-    2 => "#FFED00",
-    3 => "#008026",
-    4 => "#004CFF",
-    5 => "#732982",
-    6 => "#f4aec8",
-    7 => "#f4aec8",
-    8 => "#945516",
-    9 => "#000000",
-];
+$originalPeopleCardPath = Yii::$app->getModule('user')->basePath . '/widgets/views/peopleCard.php';
 
-$userCardHeaderBgColorId = (int)substr((string)$user->id, -1, 1); // Last ID digit
-$userCardHeaderBgColor = $cardHeaderBgColors[$userCardHeaderBgColorId];
+if ($user->getProfileBannerImage()->hasImage()) {
+    require $originalPeopleCardPath;
+    
+} else {
+    $cardHeaderBgColors = [
+        0 => "#FFB5B5", // Pastel red
+        1 => "#FFD4B2", // Pastel orange
+        2 => "#FFF4B5", // Pastel yellow
+        3 => "#B5E6C5", // Pastel green
+        4 => "#B5D4FF", // Pastel blue
+        5 => "#E0B5E6", // Pastel purple
+        6 => "#FFE1EC", // Lighter pink
+        7 => "#FFE1EC", // Lighter pink (duplicate)
+        8 => "#E6C9B5", // Pastel brown
+        9 => "#D9D9D9", // Light gray instead of black
+    ];
 
-ob_start();
-require Yii::$app->getModule('user')->basePath . '/widgets/views/peopleCard.php';
-$content = ob_get_clean();
-?>
+    $userCardHeaderBgColorId = (int)substr((string)$user->id, -1, 1); // Last ID digit
+    $userCardHeaderBgColor = $cardHeaderBgColors[$userCardHeaderBgColorId];
 
-<?= str_replace('class="card-bg-image"', 'class="card-bg-image" style="background-color: '.$userCardHeaderBgColor.';"', $content) ?>
+    ob_start();
+    require $originalPeopleCardPath;
+    $content = ob_get_clean();
+
+    echo str_replace('class="card-bg-image"', 'class="card-bg-image" style="background-color: ' . $userCardHeaderBgColor . ';"', $content);
+}
