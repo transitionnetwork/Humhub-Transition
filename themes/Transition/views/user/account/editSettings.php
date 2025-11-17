@@ -1,6 +1,6 @@
 <?php
 
-use humhub\libs\Html;
+use humhub\helpers\Html;
 use humhub\modules\user\models\forms\AccountSettings;
 
 require Yii::$app->getModule('user')->viewPath . '/account/editSettings.php';
@@ -10,6 +10,6 @@ require Yii::$app->getModule('user')->viewPath . '/account/editSettings.php';
 ?>
 <script <?= Html::nonce() ?>>
     $(function () {
-        $('.form-group.field-accountsettings-tags').hide();
+        $('.field-accountsettings-tags').hide();
     });
 </script>

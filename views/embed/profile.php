@@ -12,12 +12,12 @@
  */
 
 use humhub\assets\AppAsset;
-use humhub\libs\Html;
+use humhub\components\View;
+use humhub\helpers\Html;
 use humhub\libs\StringHelper;
 use humhub\modules\cleanTheme\assets\CleanThemeAsset;
-use humhub\modules\ui\view\components\View;
 use humhub\modules\user\widgets\Image;
-use humhub\widgets\Label;
+use humhub\widgets\bootstrap\Badge;
 
 AppAsset::register($this);
 CleanThemeAsset::register($this);
@@ -40,13 +40,13 @@ $this->beginBody();
 
     <a href="<?= $user->createUrl(null, [], true) ?>" style="display: flex;">
         <div style="margin-right: 15px;"><?= Image::widget([
-                'user' => $user,
-                'width' => 60,
-                'link' => false,
-            ]) ?></div>
+            'user' => $user,
+            'width' => 60,
+            'link' => false,
+        ]) ?></div>
         <div style="display: flex; justify-content: space-between; flex-direction: column;">
             <div style="font-weight: bold;">
-                <?= Label::defaultType(Html::encode($user->getDisplayNameSub()))->right() ?>
+                <?= Badge::light(Html::encode($user->getDisplayNameSub()))->right() ?>
                 <?= Html::encode($user->getDisplayName()) ?>
             </div>
             <div style="padding-bottom: 10px;">

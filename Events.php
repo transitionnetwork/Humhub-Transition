@@ -8,6 +8,7 @@
 
 namespace humhub\modules\transition;
 
+use humhub\helpers\ControllerHelper;
 use humhub\modules\admin\permissions\ManageUsers;
 use humhub\modules\admin\widgets\UserMenu;
 use humhub\modules\legal\Module;
@@ -44,7 +45,7 @@ class Events
                 'label' => Yii::t('TransitionModule.config', 'Default spaces'),
                 'url' => ['/transition/admin/default-spaces'],
                 'sortOrder' => 2000,
-                'isActive' => MenuLink::isActiveState('transition', 'admin', 'default-spaces'),
+                'isActive' => ControllerHelper::isActivePath('transition', 'admin', 'default-spaces'),
                 'isVisible' => true,
             ]));
         }

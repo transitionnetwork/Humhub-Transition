@@ -12,9 +12,9 @@
  */
 
 use humhub\assets\AppAsset;
+use humhub\components\View;
 use humhub\modules\cleanTheme\assets\CleanThemeAsset;
 use humhub\modules\notification\widgets\OverviewWidget;
-use humhub\modules\ui\view\components\View;
 
 AppAsset::register($this);
 CleanThemeAsset::register($this);
@@ -32,7 +32,7 @@ $this->beginBody();
 
     <div class="container">
         <div class="row">
-            <div class="col-md-12 layout-content-container">
+            <div class="col-lg-12 layout-content-container">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <?= Yii::t('NotificationModule.base', '<strong>Notification</strong> Overview') ?>

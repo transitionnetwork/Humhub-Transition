@@ -7,6 +7,7 @@ Unreleased
 - Cgh: Space hosts are now Space admins and moderators (they were only admins before)
 - Enh https://helpdesk.transition-space.org/conversation/1427?folder_id=23: Allocate user header colour if not user-selected
 - Chg: Rename theme to `Transition`
+- Enh: Migration to BS5 and HumHub 1.18
 
 2.0 (July 12, 2024)
 --------------------

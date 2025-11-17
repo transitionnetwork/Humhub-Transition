@@ -7,8 +7,8 @@
  */
 
 use humhub\assets\AppAsset;
+use humhub\components\View;
 use humhub\modules\cleanTheme\assets\CleanThemeAsset;
-use humhub\modules\ui\view\components\View;
 
 AppAsset::register($this);
 CleanThemeAsset::register($this);

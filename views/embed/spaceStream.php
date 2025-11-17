@@ -12,10 +12,10 @@
  */
 
 use humhub\assets\AppAsset;
+use humhub\components\View;
 use humhub\modules\cleanTheme\assets\CleanThemeAsset;
 use humhub\modules\space\models\Space;
 use humhub\modules\stream\widgets\StreamViewer;
-use humhub\modules\ui\view\components\View;
 
 AppAsset::register($this);
 CleanThemeAsset::register($this);
