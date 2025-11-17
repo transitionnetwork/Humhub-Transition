@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Transition Movement
  * @link https://github.com/transitionnetwork/Humhub-Transition
