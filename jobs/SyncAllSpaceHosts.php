@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Module Model
  * @link https://www.cuzy.app
