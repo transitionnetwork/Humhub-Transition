@@ -47,9 +47,7 @@ class MembershipHelper
         $isSpaceHost = (bool)$membershipQuery->count();
 
         // Update user tags (As a Space host user, for each space where the user is an admin or moderator, a tag of the space name is attached to the user account)
-        $spaceTags = array_map(static function (Space $space) {
-            return $space->name;
-        }, Space::findAll(['status' => Space::STATUS_ENABLED]));
+        $spaceTags = array_map(static fn(Space $space) => $space->name, Space::findAll(['status' => Space::STATUS_ENABLED]));
         $user->tagsField = array_diff((array)$user->tagsField, $spaceTags, ($tagFieldToRemove ? [] : [$tagFieldToRemove])); // don't remove `(array)` in front of `$user->tagsField` as it could be null
         if ($isSpaceHost) {
             /** @var Membership $membership */
@@ -67,7 +65,7 @@ class MembershipHelper
         ) {
             try {
                 $spaceHostsGroup->addUser($user);
-            } catch (InvalidConfigException $e) {
+            } catch (InvalidConfigException) {
             }
         }
 
@@ -77,13 +75,13 @@ class MembershipHelper
         ) {
             try {
                 $spaceHostsGroup->removeUser($user);
-            } catch (StaleObjectException|\Throwable $e) {
+            } catch (StaleObjectException|\Throwable) {
             }
             foreach ($spaceHostsGroup->getDefaultSpaces() as $space) {
                 if ($space->isMember($user->id)) {
                     try {
                         $space->removeMember($user->id);
-                    } catch (InvalidConfigException|\Throwable $e) {
+                    } catch (InvalidConfigException|\Throwable) {
                     }
                 }
             }
