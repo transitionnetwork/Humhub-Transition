@@ -27,7 +27,7 @@ class AdminController extends Controller
     /**
      * @inheritdoc
      */
-    public function getAccessRules()
+    protected function getAccessRules()
     {
         return [
             ['permission' => ManageUsers::class],
@@ -90,7 +90,6 @@ class AdminController extends Controller
     /**
      * Hidden action
      * URL: /transition/admin/sync-all-space-admins
-     * @return void
      */
     public function actionSyncAllSpaceAdmins()
     {
