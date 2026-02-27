@@ -46,7 +46,7 @@ $this->beginBody();
         ]) ?></div>
         <div style="display: flex; justify-content: space-between; flex-direction: column;">
             <div style="font-weight: bold;">
-                <?= Badge::light(Html::encode($user->getDisplayNameSub()))->right() ?>
+                <?= Badge::light($user->getDisplayNameSub())->right() ?>
                 <?= Html::encode($user->getDisplayName()) ?>
             </div>
             <div style="padding-bottom: 10px;">
