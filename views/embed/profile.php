@@ -14,7 +14,6 @@
 use humhub\assets\AppAsset;
 use humhub\components\View;
 use humhub\helpers\Html;
-use humhub\libs\StringHelper;
 use humhub\modules\cleanTheme\assets\CleanThemeAsset;
 use humhub\modules\user\widgets\Image;
 use humhub\widgets\bootstrap\Badge;
@@ -50,7 +49,7 @@ $this->beginBody();
                 <?= Html::encode($user->getDisplayName()) ?>
             </div>
             <div style="padding-bottom: 10px;">
-                <?= Html::encode(StringHelper::truncate($user->profile->about, 50)) ?>
+                <?= Html::encode($user->profile->about) ?>
             </div>
         </div>
     </a>
