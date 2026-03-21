@@ -1,11 +1,5 @@
 <?php
-/**
- * This view can be deleted when https://github.com/humhub/calendar/issues/371 is resolved
- * When deleted, delete also the events-map/widgets/wallEntry.php view
- */
 
-
-use humhub\modules\calendar\helpers\CalendarUtils;
 use humhub\modules\calendar\helpers\RecurrenceHelper;
 use humhub\modules\calendar\models\CalendarEntry;
 use humhub\modules\calendar\models\CalendarEntryParticipant;
@@ -21,12 +15,12 @@ use yii\web\View;
 /* @var $collapse boolean */
 /* @var $this View */
 
-$color = $this->theme->variable('text-color-secondary');
+$color = 'var(--text-color-secondary)';
 ?>
 
-<div class="d-flex event calendar-wall-entry" style="margin-top:20px;" data-action-component="calendar.CalendarEntry"
+<div class="event calendar-wall-entry mt-3" data-action-component="calendar.CalendarEntry"
      data-calendar-entry="<?= $calendarEntry->id ?>">
-    <div class="event-info-section clearfix" style="margin-bottom:10px">
+    <div class="event-info-section clearfix mb-2">
         <?= Icon::get('file-text')->color($color)->left()->size(Icon::SIZE_LG)->style('margin-top:2px;')->fixedWith() ?>
 
         <div class="event-info-section-content">
@@ -68,6 +62,7 @@ $color = $this->theme->variable('text-color-secondary');
                 ?>
 
 
+
                 <?= ($calendarEntry->closed) ? '</s>' : '' ?>
                 <?php if (!$calendarEntry->closed && $calendarEntry->isAllDay()) : ?>
                     <small>(<?= Yii::t('CalendarModule.base', 'All Day') ?>)</small>
@@ -105,7 +100,7 @@ $color = $this->theme->variable('text-color-secondary');
             <?= Icon::get('info-circle')->color($color)->left()->size(Icon::SIZE_LG)->style('margin-top:2px;')->fixedWith() ?>
             <div class="event-info-section-content">
                 <h1>
-                    <?= Yii::t('CalendarModule.views_entry_view', 'Additional information') ?>
+                    <?= Yii::t('CalendarModule.views', 'Additional information') ?>
                 </h1>
                 <div data-ui-markdown data-ui-show-more>
                     <?= RichText::output($calendarEntry->participant_info) ?>
@@ -143,18 +138,18 @@ $color = $this->theme->variable('text-color-secondary');
     <?php if ($calendarEntry->participation->canRespond(Yii::$app->user->identity)): ?>
         <div class="event-participation-buttons clearfix">
             <?php if ($calendarEntry->participation->isInvited() && !$calendarEntry->isPast()) : ?>
-                <div class="text-warning"><?= Icon::get('warning') . Yii::t('CalendarModule.views_entry_view', 'You are invited, please select your role:') ?></div>
+                <div class="text-warning"><?= Icon::get('warning') . Yii::t('CalendarModule.views', 'You are invited, please select your role:') ?></div>
             <?php endif ?>
 
             <?php if ($calendarEntry->participation->maxParticipantCheck() || $calendarEntry->participation->isParticipant(Yii::$app->user->identity, false)) : ?>
-                <?= EntryParticipants::participateButton($calendarEntry, CalendarEntryParticipant::PARTICIPATION_STATE_ACCEPTED, Yii::t('CalendarModule.views_entry_view', "Attend")) ?>
+                <?= EntryParticipants::participateButton($calendarEntry, CalendarEntryParticipant::PARTICIPATION_STATE_ACCEPTED, Yii::t('CalendarModule.views', "Attend")) ?>
             <?php endif ?>
 
             <?php if ($calendarEntry->participation->maxParticipantCheck() || $calendarEntry->participation->isParticipant(Yii::$app->user->identity, true)) : ?>
-                <?= EntryParticipants::participateButton($calendarEntry, CalendarEntryParticipant::PARTICIPATION_STATE_MAYBE, Yii::t('CalendarModule.views_entry_view', "Maybe")) ?>
+                <?= EntryParticipants::participateButton($calendarEntry, CalendarEntryParticipant::PARTICIPATION_STATE_MAYBE, Yii::t('CalendarModule.views', "Maybe")) ?>
             <?php endif ?>
 
-            <?= EntryParticipants::participateButton($calendarEntry, CalendarEntryParticipant::PARTICIPATION_STATE_DECLINED, Yii::t('CalendarModule.views_entry_view', "Decline")) ?>
+            <?= EntryParticipants::participateButton($calendarEntry, CalendarEntryParticipant::PARTICIPATION_STATE_DECLINED, Yii::t('CalendarModule.views', "Decline")) ?>
         </div>
     <?php endif; ?>
 </div>
