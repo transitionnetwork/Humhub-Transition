@@ -12,12 +12,15 @@ namespace humhub\modules\transition;
 use humhub\helpers\ControllerHelper;
 use humhub\modules\admin\permissions\ManageUsers;
 use humhub\modules\admin\widgets\UserMenu;
+use humhub\modules\content\widgets\WallEntryControls;
 use humhub\modules\legal\Module;
+use humhub\modules\reportcontent\widgets\ReportContentLink;
 use humhub\modules\space\models\Membership;
 use humhub\modules\space\models\Space;
 use humhub\modules\transition\helpers\MembershipHelper;
 use humhub\modules\transition\jobs\SyncAllSpaceHosts;
 use humhub\modules\ui\menu\MenuLink;
+use humhub\modules\ui\menu\WidgetMenuEntry;
 use humhub\modules\user\models\ProfileField;
 use humhub\modules\user\models\User;
 use Throwable;
@@ -181,5 +184,31 @@ class Events
         Yii::$app->queue->push(new SyncAllSpaceHosts([
             'tagFieldToRemove' => $space->name,
         ]));
+    }
+
+    /**
+     * Content sub-menu: Move "Report" entry to the top
+     * https://helpdesk.transition-space.org/conversation/1661?folder_id=23
+     */
+    public static function onWallEntryControlsBeforeRun($event)
+    {
+        /** @var WallEntryControls $menu */
+        $menu = $event->sender;
+
+        $reportContentEntry = null;
+        foreach ($menu->getEntries() as $entry) {
+            if (!$entry instanceof WidgetMenuEntry) {
+                continue;
+            }
+            if ($entry->getEntryClass() === ReportContentLink::class) {
+                $reportContentEntry = $entry;
+            }
+        }
+
+        if ($reportContentEntry) {
+            $menu->removeEntry($reportContentEntry);
+            $reportContentEntry->setSortOrder(0);
+            $menu->addEntry($reportContentEntry);
+        }
     }
 }

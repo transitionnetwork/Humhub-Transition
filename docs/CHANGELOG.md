@@ -5,9 +5,10 @@ Unreleased
 --------------------
 - Chg: Rename `Module::$spaceAdminsGroupId` to `Module::$spaceHostsGroupId`
 - Cgh: Space hosts are now Space admins and moderators (they were only admins before)
-- Enh https://helpdesk.transition-space.org/conversation/1427?folder_id=23: Allocate user header colour if not user-selected
+- Enh: Allocate user header colour if not user-selected - https://helpdesk.transition-space.org/conversation/1427?folder_id=23
 - Chg: Rename theme to `Transition`
 - Enh: Migration to BS5 and HumHub 1.18
+- Enh: Content sub-menu: Move "Report" entry to the top - https://helpdesk.transition-space.org/conversation/1661?folder_id=23
 
 2.0 (July 12, 2024)
 --------------------

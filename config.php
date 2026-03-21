@@ -8,6 +8,7 @@
  */
 
 use humhub\modules\admin\widgets\UserMenu;
+use humhub\modules\content\widgets\WallEntryControls;
 use humhub\modules\space\models\Membership;
 use humhub\modules\space\models\Space;
 use humhub\modules\transition\Events;
@@ -52,6 +53,11 @@ return [
             'class' => Space::class,
             'event' => Space::EVENT_AFTER_UPDATE,
             'callback' => [Events::class, 'onModelSpaceAfterUpdate'],
+        ],
+        [
+            'class' => WallEntryControls::class,
+            'event' => WallEntryControls::EVENT_BEFORE_RUN,
+            'callback' => [Events::class, 'onWallEntryControlsBeforeRun'],
         ],
     ],
 ];
