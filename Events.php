@@ -41,10 +41,11 @@ class Events
         /** @var UserMenu $menu */
         $menu = $event->sender;
 
-        if (
-            Yii::$app->user->can(ManageUsers::class) // Don't move in 'isVisible' as it doesn't work in all cases and because the "if" costs less
-            && ProfileField::findOne(['internal_name' => 'region'])
-        ) {
+        if (!Yii::$app->user->can(ManageUsers::class)) { // Don't move in 'isVisible' as it doesn't work in all cases and because the "if" costs less
+            return;
+        }
+
+        if (ProfileField::findOne(['internal_name' => 'region'])) {
             $menu->addEntry(new MenuLink([
                 'label' => Yii::t('TransitionModule.config', 'Default spaces'),
                 'url' => ['/transition/admin/default-spaces'],
@@ -53,6 +54,15 @@ class Events
                 'isVisible' => true,
             ]));
         }
+
+        $menu->addEntry(new MenuLink([
+            'label' => Yii::t('TransitionModule.config', 'Conversations'),
+            'url' => ['/transition/admin/conversations'],
+            'sortOrder' => 2010,
+            'isActive' => ControllerHelper::isActivePath('transition', 'admin', 'conversations')
+                || ControllerHelper::isActivePath('transition', 'admin', 'conversation-detail'),
+            'isVisible' => true,
+        ]));
     }
 
 

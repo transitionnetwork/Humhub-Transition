@@ -9,6 +9,7 @@ HumHub module for the [Transition Movement](https://transitionnetwork.org/) It i
 - Change the "Spaces" top menu button URL to add a filter showing the oldest spaces first
 - Possibility to specify a specific group with `Module::spaceAdminsGroupId` to sync all admin users of all spaces with the members of this group (see in configuration) and the members of the related default spaces (space members removal after group member removal).
 - Content sub-menu: Move "Report" entry to the top
+- Admin access to user DM's
 
 ### Space hosts (Space admin or moderators)
 

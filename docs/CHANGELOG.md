@@ -11,6 +11,7 @@ Unreleased
 - Enh: Content sub-menu: Move "Report" entry to the top - https://helpdesk.transition-space.org/conversation/1661?folder_id=23
 - Chg: Profiles embeddable on third party sites: expand to include full text - https://helpdesk.transition-space.org/conversation/291?folder_id=23
 - Fix: Calendar event wall entry for 1.18 - https://helpdesk.transition-space.org/conversation/1689?folder_id=23
+- Enh: Add admin access to user DM's - https://helpdesk.transition-space.org/conversation/1660?folder_id=23 
 
 2.0 (July 12, 2024)
 --------------------
