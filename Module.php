@@ -13,6 +13,7 @@ use humhub\helpers\ThemeHelper;
 use humhub\modules\content\components\ContentContainerModule;
 use humhub\modules\content\components\ContentContainerModuleManager;
 use humhub\modules\transition\jobs\SyncAllSpaceHosts;
+use humhub\modules\transition\jobs\SyncAllUsersLatLng;
 use humhub\modules\user\models\User;
 use Yii;
 
@@ -64,6 +65,7 @@ class Module extends ContentContainerModule
             $this->enableTheme();
             ContentContainerModuleManager::setDefaultState(User::class, 'transition', 1);
             Yii::$app->queue->push(new SyncAllSpaceHosts());
+            Yii::$app->queue->push(new SyncAllUsersLatLng());
             return true;
         }
         return false;

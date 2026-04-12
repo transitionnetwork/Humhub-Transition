@@ -261,7 +261,7 @@ class Events
      * @param int $userId
      * @return void
      */
-    private static function syncLatLngProfileField(int $userId): void
+    public static function syncLatLngProfileField(int $userId): void
     {
         /** @var \humhub\modules\transition\Module $module */
         $module = Yii::$app->getModule('transition');
