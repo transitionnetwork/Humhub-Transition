@@ -9,10 +9,12 @@
 
 use humhub\modules\admin\widgets\UserMenu;
 use humhub\modules\content\widgets\WallEntryControls;
+use humhub\modules\membersMap\models\MembersMap;
 use humhub\modules\space\models\Membership;
 use humhub\modules\space\models\Space;
 use humhub\modules\transition\Events;
 use humhub\modules\user\models\forms\Registration;
+use yii\db\ActiveRecord;
 
 return [
     'id' => 'transition',
@@ -58,6 +60,21 @@ return [
             'class' => WallEntryControls::class,
             'event' => WallEntryControls::EVENT_BEFORE_RUN,
             'callback' => [Events::class, 'onWallEntryControlsBeforeRun'],
+        ],
+        [
+            'class' => MembersMap::class,
+            'event' => ActiveRecord::EVENT_AFTER_INSERT,
+            'callback' => [Events::class, 'onMembersMapAfterSave'],
+        ],
+        [
+            'class' => MembersMap::class,
+            'event' => ActiveRecord::EVENT_AFTER_UPDATE,
+            'callback' => [Events::class, 'onMembersMapAfterSave'],
+        ],
+        [
+            'class' => MembersMap::class,
+            'event' => ActiveRecord::EVENT_AFTER_DELETE,
+            'callback' => [Events::class, 'onMembersMapAfterDelete'],
         ],
     ],
 ];

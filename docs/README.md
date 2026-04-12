@@ -10,6 +10,7 @@ HumHub module for the [Transition Movement](https://transitionnetwork.org/) It i
 - Possibility to specify a specific group with `Module::spaceAdminsGroupId` to sync all admin users of all spaces with the members of this group (see in configuration) and the members of the related default spaces (space members removal after group member removal).
 - Content sub-menu: Move "Report" entry to the top
 - Admin access to user DM's
+- Each time the `members_map` table is updated (add, delete, change), update the User Profile field with internal name `Module::$profileFieldLatLngInternalName` with the new Lat/Lng. If not empty, use `lat_user` and `lng_user`. If empty, use `lat_zip_city` and `lng_zip_city`
 
 ### Space hosts (Space admin or moderators)
 

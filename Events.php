@@ -14,6 +14,7 @@ use humhub\modules\admin\permissions\ManageUsers;
 use humhub\modules\admin\widgets\UserMenu;
 use humhub\modules\content\widgets\WallEntryControls;
 use humhub\modules\legal\Module;
+use humhub\modules\membersMap\models\MembersMap;
 use humhub\modules\reportcontent\widgets\ReportContentLink;
 use humhub\modules\space\models\Membership;
 use humhub\modules\space\models\Space;
@@ -21,6 +22,7 @@ use humhub\modules\transition\helpers\MembershipHelper;
 use humhub\modules\transition\jobs\SyncAllSpaceHosts;
 use humhub\modules\ui\menu\MenuLink;
 use humhub\modules\ui\menu\WidgetMenuEntry;
+use humhub\modules\user\models\Profile;
 use humhub\modules\user\models\ProfileField;
 use humhub\modules\user\models\User;
 use Throwable;
@@ -220,5 +222,93 @@ class Events
             $reportContentEntry->setSortOrder(0);
             $menu->addEntry($reportContentEntry);
         }
+    }
+
+    /**
+     * Sync the user profile lat/lng field after a MembersMap record is inserted or updated.
+     *
+     * @param Event $event
+     * @return void
+     */
+    public static function onMembersMapAfterSave(Event $event): void
+    {
+        /** @var MembersMap $membersMap */
+        $membersMap = $event->sender;
+        static::syncLatLngProfileField($membersMap->user_id);
+    }
+
+    /**
+     * Sync the user profile lat/lng field after a MembersMap record is deleted.
+     * Re-queries the remaining records so the best available coordinates are used.
+     *
+     * @param Event $event
+     * @return void
+     */
+    public static function onMembersMapAfterDelete(Event $event): void
+    {
+        /** @var MembersMap $membersMap */
+        $membersMap = $event->sender;
+        static::syncLatLngProfileField($membersMap->user_id);
+    }
+
+    /**
+     * Find the best lat/lng coordinates for the given user across all their MembersMap records
+     * and persist the value directly to the profile table (bypassing ActiveRecord events to
+     * avoid re-triggering the members-map geocoding pipeline).
+     *
+     * Priority: lat_user / lng_user  →  lat_zip_city / lng_zip_city
+     *
+     * @param int $userId
+     * @return void
+     */
+    private static function syncLatLngProfileField(int $userId): void
+    {
+        /** @var \humhub\modules\transition\Module $module */
+        $module = Yii::$app->getModule('transition');
+        if ($module === null) {
+            return;
+        }
+
+        $fieldName = $module->profileFieldLatLngInternalName;
+        if (empty($fieldName)) {
+            return;
+        }
+
+        // Bail out early if the profile column does not exist yet
+        if (!Profile::columnExists($fieldName)) {
+            return;
+        }
+
+        // Prefer a record that already has a user-supplied location
+        $record = MembersMap::find()
+            ->where(['user_id' => $userId])
+            ->andWhere(['IS NOT', 'lat_user', null])
+            ->andWhere(['IS NOT', 'lng_user', null])
+            ->one();
+
+        // Fall back to the geocoded city/zip coordinates
+        if ($record === null) {
+            $record = MembersMap::find()
+                ->where(['user_id' => $userId])
+                ->andWhere(['IS NOT', 'lat_zip_city', null])
+                ->andWhere(['IS NOT', 'lng_zip_city', null])
+                ->one();
+        }
+
+        if ($record !== null) {
+            if ($record->lat_user !== null && $record->lng_user !== null) {
+                $latLng = $record->lat_user . ',' . $record->lng_user;
+            } else {
+                $latLng = $record->lat_zip_city . ',' . $record->lng_zip_city;
+            }
+        } else {
+            $latLng = null;
+        }
+
+        // Write directly to the DB to avoid firing Profile::EVENT_AFTER_UPDATE
+        // which would trigger the members-map geocoding pipeline again.
+        Yii::$app->db->createCommand()
+            ->update(Profile::tableName(), [$fieldName => $latLng], ['user_id' => $userId])
+            ->execute();
     }
 }

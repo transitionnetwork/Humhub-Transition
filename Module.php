@@ -30,6 +30,8 @@ class Module extends ContentContainerModule
      */
     public $spaceHostsGroupId;
 
+    public $profileFieldLatLngInternalName = 'lat_lng';
+
 
     public function getName()
     {
