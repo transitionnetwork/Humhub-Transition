@@ -11,7 +11,7 @@ use yii\web\View;
 
 $originalPeopleCardPath = Yii::$app->getModule('user')->basePath . '/widgets/views/peopleCard.php';
 
-if ($user->getProfileBannerImage()->hasImage()) {
+if ($user->getBannerImage()->exists()) {
     require $originalPeopleCardPath;
     
 } else {
