@@ -22,6 +22,7 @@ use humhub\modules\transition\helpers\MembershipHelper;
 use humhub\modules\transition\jobs\SyncAllSpaceHosts;
 use humhub\modules\ui\menu\MenuLink;
 use humhub\modules\ui\menu\WidgetMenuEntry;
+use humhub\modules\user\events\UserEvent;
 use humhub\modules\user\models\Profile;
 use humhub\modules\user\models\ProfileField;
 use humhub\modules\user\models\User;
@@ -75,14 +76,14 @@ class Events
      * @throws InvalidConfigException
      * @throws Throwable
      */
-    public static function onFormAfterRegistration(yii\web\UserEvent $event)
+    public static function onFormAfterRegistration(UserEvent $event)
     {
         // Do not store on console request
         if (Yii::$app->request->isConsoleRequest) {
             return;
         }
 
-        if (!isset($event->identity)) {
+        if (!isset($event->user)) {
             return;
         }
 
@@ -92,7 +93,7 @@ class Events
         $defaultSpaces = (array)$settings->getSerialized('defaultSpaces');
 
         // Get user from event because Yii::$app->user->id doesnt work here
-        $user = User::findOne(['id' => $event->identity->id]);
+        $user = User::findOne(['id' => $event->user->id]);
 
         if (!$user->profile->hasAttribute('region')) {
             return;
