@@ -1,6 +1,11 @@
 {
   "name": "cuzy-app/transition",
   "type": "humhub-module",
+  "autoload": {
+    "psr-4": {
+      "humhub\\modules\\transition\\": ""
+    }
+  },
   "config": {
     "platform": {
       "php": "8.2"
