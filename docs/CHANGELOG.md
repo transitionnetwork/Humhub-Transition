@@ -1,8 +1,9 @@
 Changelog
 =========
 
-Unreleased
---------------------
+2.1.0 (Unreleased)
+------------------
+- Fix: Compatibility with HumHub 1.19
 - Chg: Rename `Module::$spaceAdminsGroupId` to `Module::$spaceHostsGroupId`
 - Cgh: Space hosts are now Space admins and moderators (they were only admins before)
 - Enh: Allocate user header colour if not user-selected - https://helpdesk.transition-space.org/conversation/1427?folder_id=23
