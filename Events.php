@@ -288,13 +288,11 @@ class Events
             ->one();
 
         // Fall back to the geocoded city/zip coordinates
-        if ($record === null) {
-            $record = MembersMap::find()
-                ->where(['user_id' => $userId])
-                ->andWhere(['IS NOT', 'lat_zip_city', null])
-                ->andWhere(['IS NOT', 'lng_zip_city', null])
-                ->one();
-        }
+        $record ??= MembersMap::find()
+            ->where(['user_id' => $userId])
+            ->andWhere(['IS NOT', 'lat_zip_city', null])
+            ->andWhere(['IS NOT', 'lng_zip_city', null])
+            ->one();
 
         if ($record !== null) {
             if ($record->lat_user !== null && $record->lng_user !== null) {

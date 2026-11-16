@@ -16,6 +16,7 @@ Changelog
 - Enh: add a new Event in the transition module:
   Each time the `members_map` table is updated (add, delete, change), update the User Profile field with internal name `Module::$profileFieldLatLngInternalName` with the new Lat/Lng.
   If not empty, use `lat_user` and `lng_user`. If empty, use `lat_zip_city` and `lng_zip_city`
+- Enh: Automated code refactoring for HumHub 1.19 using Rector
 
 2.0 (July 12, 2024)
 --------------------
